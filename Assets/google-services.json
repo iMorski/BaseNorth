@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "267072080085",
+    "firebase_url": "https://base-north.firebaseio.com",
+    "project_id": "base-north",
+    "storage_bucket": "base-north.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:267072080085:android:48786d4d82fa8169d4ba5c",
+        "android_client_info": {
+          "package_name": "base.north"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "267072080085-4gjrjngma8nni4b7mp0putppj4sqbvut.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2JZbJYJ9RcLrzHEsj9VrMqBe0veP-AH8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "267072080085-4gjrjngma8nni4b7mp0putppj4sqbvut.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

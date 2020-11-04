@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources tools:keep="@string/firebase_database_url,@string/gcm_defaultSenderId,@string/google_storage_bucket,@string/project_id,@string/google_api_key,@string/google_crash_reporting_api_key,@string/google_app_id,@string/default_web_client_id" xmlns:tools="http://schemas.android.com/tools">
+  <string name="firebase_database_url" translatable="false">https://base-north.firebaseio.com</string>
+  <string name="gcm_defaultSenderId" translatable="false">267072080085</string>
+  <string name="google_storage_bucket" translatable="false">base-north.appspot.com</string>
+  <string name="project_id" translatable="false">base-north</string>
+  <string name="google_api_key" translatable="false">AIzaSyD2JZbJYJ9RcLrzHEsj9VrMqBe0veP-AH8</string>
+  <string name="google_crash_reporting_api_key" translatable="false">AIzaSyD2JZbJYJ9RcLrzHEsj9VrMqBe0veP-AH8</string>
+  <string name="google_app_id" translatable="false">1:267072080085:android:48786d4d82fa8169d4ba5c</string>
+  <string name="default_web_client_id" translatable="false">267072080085-4gjrjngma8nni4b7mp0putppj4sqbvut.apps.googleusercontent.com</string>
+</resources>

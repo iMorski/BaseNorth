@@ -8,10 +8,5 @@ public class Button : MonoBehaviour
         string Position02 = Mathf.Round(gameObject.transform.position.z).ToString();
         
         FirebaseController.MyData["Position"] = $"{Position01} : {Position02}";
-
-        if (!GameController.IsDeveloper)
-        {
-            FirebaseController.Write();
-        }
     }
 }

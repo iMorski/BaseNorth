@@ -11,8 +11,12 @@ public class GameController : MonoBehaviour
     [SerializeField] private Vector3 StartPosition02;
     
     private double ConnectionStep;
+    
+    private Dictionary<string, string> MyData = new Dictionary<string, string>();
 
     public static bool IsDeveloper;
+    public static bool OnDataChange;
+    
     private bool OnPauseSkip;
 
     private int MyPosition;
@@ -25,6 +29,7 @@ public class GameController : MonoBehaviour
     private void Start()
     {
         FirebaseController.MyData.Add("Position", "0 : 0");
+        MyData = FirebaseController.MyData;
     }
 
     private void Update()

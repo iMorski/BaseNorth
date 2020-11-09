@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class Button : MonoBehaviour
 {
@@ -7,6 +8,17 @@ public class Button : MonoBehaviour
         string Position01 = Mathf.Round(gameObject.transform.position.x).ToString();
         string Position02 = Mathf.Round(gameObject.transform.position.z).ToString();
         
-        FirebaseController.MyData["Position"] = $"{Position01} : {Position02}";
+        FB.MyData["Position"] = $"{Position01} : {Position02}";
+        
+        if (GameController.IsDeveloper)
+        {
+            foreach (KeyValuePair<string, string> Data in FB.MyData)
+            {
+                if (!(Data.Key != "Position"))
+                {
+                    //Character01.SetPoint(Data.Value);
+                }
+            }
+        }
     }
 }

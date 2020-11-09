@@ -5,19 +5,8 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
     [SerializeField] private bool _IsDeveloper;
-    [SerializeField] private CharacterMove Character01;
-    [SerializeField] private CharacterMove Character02;
-    [SerializeField] private Vector3 StartPosition01;
-    [SerializeField] private Vector3 StartPosition02;
-    
-    private double ConnectionStep;
-    
-    private Dictionary<string, string> MyData = new Dictionary<string, string>();
 
     public static bool IsDeveloper;
-    public static bool OnDataChange;
-    
-    private bool OnPauseSkip;
 
     private int MyPosition;
 
@@ -28,81 +17,58 @@ public class GameController : MonoBehaviour
 
     private void Start()
     {
-        FirebaseController.MyData.Add("Position", "0 : 0");
-        MyData = FirebaseController.MyData;
+        FB.MyData.Add("Position", "0 : 0");
+        
+        FB.ConnectionStepChange += OnConnectionStepChange;
+        FB.RoomDataChange += OnRoomDataChange;
     }
 
-    private void Update()
+    private void OnConnectionStepChange()
     {
-        if (ConnectionStep != 1.0 && !(FirebaseController.ConnectionStep != 1.0))
+        if (!(FB.ConnectionStep != 1.0))
         {
-            FirebaseController.Connect();
-            
-            ConnectionStep = 1.0;
+            FB.Connect();
         }
+    }
 
-        if (ConnectionStep != 5.0 && !(FirebaseController.ConnectionStep != 5.0))
+    private void OnRoomDataChange()
+    {
+        if (!(MyPosition != 0))
         {
-            if (!(FirebaseController.InRoomData.Values.First() != FirebaseController.MyName))
+            if (!(FB.RoomData.Values.First() != FB.MyName))
             {
                 MyPosition = 1;
-                
-                FirebaseController.MyData["Position"] = $"{StartPosition01.x} : {StartPosition01.z}";
             }
             else
             {
                 MyPosition = 2;
-
-                FirebaseController.MyData["Position"] = $"{StartPosition02.x} : {StartPosition02.z}";
-            }
-            
-            FirebaseController.Write();
-            
-            ConnectionStep = 5.0;
-        }
-
-        if (IsDeveloper)
-        {
-            foreach (KeyValuePair<string, string> Data in FirebaseController.MyData)
-            {
-                if (!(Data.Key != "Position"))
-                {
-                    Character01.SetPoint(Data.Value);
-                }
             }
         }
-        else
+        
+        foreach (KeyValuePair<Dictionary<string, string>, string> RoomData in FB.RoomData)
         {
-            if (FirebaseController.OnRoomDataChange)
+            if (!(RoomData.Value != FB.MyName))
             {
-                foreach (KeyValuePair<Dictionary<string, string>, string> InRoomData in FirebaseController.InRoomData)
+                foreach (KeyValuePair<string, string> Data in RoomData.Key)
                 {
-                    if (!(InRoomData.Value != FirebaseController.MyName))
+                    if (!(Data.Key != "Position"))
                     {
-                        foreach (KeyValuePair<string, string> Data in InRoomData.Key)
+                        if (!(Data.Value != FB.MyData["Position"]))
                         {
-                            if (!(Data.Key != "Position"))
-                            {
-                                if (!(Data.Value != FirebaseController.MyData["Position"]))
-                                {
-                                    Character01.SetPoint(Data.Value);
-                                }
-                            }
-                        }
-                    }
-                    else
-                    {
-                        foreach (KeyValuePair<string, string> Data in InRoomData.Key)
-                        {
-                            if (!(Data.Key != "Position"))
-                            {
-                                Character02.SetPoint(Data.Value);
-                            }
+                            //Character01.SetPoint(Data.Value);
                         }
                     }
                 }
-            
-                FirebaseController.OnRoomDataChange = false;
+            }
+            else
+            {
+                foreach (KeyValuePair<string, string> Data in RoomData.Key)
+                {
+                    if (!(Data.Key != "Position"))
+                    {
+                        //Character02.SetPoint(Data.Value);
+                    }
+                }
             }
         }
     }
@@ -111,10 +77,12 @@ public class GameController : MonoBehaviour
 
         private void OnApplicationQuit()
         {
-            FirebaseController.Disconnect();
+            FB.Disconnect();
         }
 
     #else
+    
+        bool OnPauseSkip;
     
         private void OnApplicationPause(bool OnPause)
         {

@@ -6,6 +6,8 @@ public class CameraRotation : MonoBehaviour
     [Range(0.0f, 1.0f)][SerializeField] private float ScrollAngle;
     [Range(0.0f, 1.0f)][SerializeField] private float Smooth;
 
+    public static Quaternion RotationQuaternion;
+
     private float PreviousAngle;
     private float NextAngle;
     private float Angle;
@@ -26,5 +28,7 @@ public class CameraRotation : MonoBehaviour
 
         Angle = Mathf.SmoothStep(Angle, 0.0f, Smooth);
         transform.Rotate(0.0f, Angle, 0.0f);
+
+        RotationQuaternion = transform.rotation;
     }
 }

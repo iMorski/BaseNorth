@@ -25,8 +25,6 @@ public class CharacterMovement : MonoBehaviour
                 {
                     if (!(Data.Key != gameObject.name) && !(Data.Value != FB.MyData[Data.Key]))
                     {
-                        GameController.ActionRestriction = false;
-
                         if (Data.Value != RawCurrentPosition)
                         {
                             RawCurrentPosition = Data.Value;

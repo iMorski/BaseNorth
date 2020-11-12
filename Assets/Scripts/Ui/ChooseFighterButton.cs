@@ -20,6 +20,17 @@ public class ChooseFighterButton : MonoBehaviour
     {
         FB.ConnectionStepChange += OnConnectionStepChange;
         Cell.Сlick += OnCellClick;
+        CharacterSelector.Сlick += OnCharacterSelectorClick;
+    }
+
+    private void OnChooseFighterButtonClick(string ChooseFighterButtonName, GameObject ChooseFighterButtonCharacter)
+    {
+        string Name = gameObject.name;
+        
+        if (ChooseFighterButtonName != Name)
+        {
+            Animator.Play("ChooseFighterButton-Enable");
+        }
     }
 
     private void OnConnectionStepChange()
@@ -35,14 +46,9 @@ public class ChooseFighterButton : MonoBehaviour
         Animator.Play("ChooseFighterButton-Enable");
     }
 
-    private void OnChooseFighterButtonClick(string ChooseFighterButtonName, GameObject ChooseFighterButtonCharacter)
+    private void OnCharacterSelectorClick(GameObject CharacterSelectorButton)
     {
-        string Name = gameObject.name;
-        
-        if (ChooseFighterButtonName != Name)
-        {
-            Animator.Play("ChooseFighterButton-Enable");
-        }
+        Animator.Play("ChooseFighterButton-Disable");
     }
 
     public void OnClick()

@@ -9,6 +9,7 @@ public class Cell : MonoBehaviour
     public static event OnСlick Сlick;
 
     private GameObject Character;
+    
     private void Awake()
     {
         Animator = GetComponent<Animator>();
@@ -20,11 +21,21 @@ public class Cell : MonoBehaviour
     {
         ChooseFighterButton.Сlick += OnChooseFighterButtonClick;
         GameController.EnemyCharacterSpawn += OnEnemyCharacterSpawn;
+        GameController.EnemyCharacterMove += OnEnemyCharacterMove;
+        CharacterSelector.Сlick += OnCharacterSelectorClick;
     }
 
     private void OnCellClick()
     {
-        if (!Animator.GetBool("IsBusy"))
+        Vector3 CharacterPosition = Character.transform.position;
+        Vector3 CellPosition = gameObject.transform.position;
+        
+        if (!(CharacterPosition != CellPosition) && Animator.GetBool("IsBusy"))
+        {
+            Animator.Play("Cell-Plane-Busy-Disable");
+            Animator.SetBool("IsBusy", false);
+        }
+        else if (!Animator.GetBool("IsBusy"))
         {
             Animator.Play("Cell-Plane-Disable");
         }
@@ -45,8 +56,32 @@ public class Cell : MonoBehaviour
         if (!(CharacterPosition != gameObject.transform.position))
         {
             Animator.SetBool("IsBusy", true);
-            Animator.Play("Cell-Plane-Disable");
+            Animator.Play("Cell-Plane-Busy-Enable");
         }
+    }
+
+    private void OnEnemyCharacterMove(Vector3 CharacterCurrentPosition, Vector3 CharacterTargetPosition)
+    {
+        Vector3 Position = gameObject.transform.position;
+
+        if (!(Position != CharacterCurrentPosition))
+        {
+            
+        }
+        else if (!(Position != CharacterTargetPosition))
+        {
+            
+        }
+    }
+    
+    private void OnCharacterSelectorClick(GameObject CharacterSelectorButton)
+    {
+        if (!Animator.GetBool("IsBusy"))
+        {
+            Animator.Play("Cell-Plane-Enable");
+        }
+
+        Character = CharacterSelectorButton.transform.parent.gameObject;
     }
 
     public void OnClick()
@@ -57,6 +92,21 @@ public class Cell : MonoBehaviour
         string Position01 = Mathf.Round(gameObject.transform.position.x).ToString();
         string Position02 = Mathf.Round(gameObject.transform.position.z).ToString();
 
+        foreach (string CharacterByName in GameController.CharacterInGameByName)
+        {
+            if (!(Character.name != CharacterByName))
+            {
+                FB.MyData[Character.name.Replace("Ally-", "")] = $"{Position01} : {Position02}";
+                FB.SetValue();
+                
+                Сlick();
+                
+                Debug.Log($"Moving Character: {Character.name}");
+                
+                return;
+            }
+        }
+        
         int Count = 0;
 
         foreach (KeyValuePair<string, string> Data in FB.MyData)
@@ -67,9 +117,11 @@ public class Cell : MonoBehaviour
             }
         }
         
-        FB.MyData[$"{Character.name}-0{Count + 1}"] = $"{Position01} : {Position02}";
+        FB.MyData[$"Character-{Character.name}-0{Count + 1}"] = $"{Position01} : {Position02}";
         FB.SetValue();
 
         Сlick();
+        
+        Debug.Log($"Spawning Character: Character-{Character.name}-0{Count + 1}");
     }
 }

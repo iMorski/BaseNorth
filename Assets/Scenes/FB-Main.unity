@@ -1287,7 +1287,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59be70804d492ab4a8f57ad12fe0853e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CellAnimator: []
 --- !u!1 &364484040
 GameObject:
   m_ObjectHideFlags: 0
@@ -3454,6 +3453,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eadc96222afaef44e83357e8cca34663, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1062182100 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8093601850677449013, guid: ac92e1ea1c5d1164199c18ec9a45c58c,
+    type: 3}
+  m_PrefabInstance: {fileID: 2134672260}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1096976666
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4700,6 +4711,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CharacterContainer:
   - {fileID: 1612952942726601800, guid: 94c8ed2952268ca4cae12cc35fda5805, type: 3}
+  - {fileID: 1612952942726601800, guid: a4108b220be0b8a43961ffe0223961fb, type: 3}
 --- !u!4 &1435257643
 Transform:
   m_ObjectHideFlags: 0
@@ -7246,6 +7258,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 703930474}
     m_Modifications:
+    - target: {fileID: 550695979154188175, guid: ac92e1ea1c5d1164199c18ec9a45c58c,
+        type: 3}
+      propertyPath: m_TargetGraphic
+      value: 
+      objectReference: {fileID: 1062182100}
     - target: {fileID: 6031964305821194098, guid: ac92e1ea1c5d1164199c18ec9a45c58c,
         type: 3}
       propertyPath: m_Color.a

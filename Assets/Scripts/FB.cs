@@ -405,6 +405,9 @@ public class FB : MonoBehaviour
 
             MyName = "";
         }
+        
+        MyData.Clear();
+        RoomData.Clear();
 
         ConnectionStep = 0;
     }

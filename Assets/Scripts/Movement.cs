@@ -7,8 +7,6 @@ public class Movement : MonoBehaviour
     
     public IEnumerator FollowPath(Vector3 Position)
     {
-        Restriction = true;
-            
         while (transform.position != Position)
         {
             transform.position = Vector3.MoveTowards(transform.position, Position, 15.0f * Time.deltaTime);

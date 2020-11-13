@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 850348589297433309}
   - component: {fileID: 2214901108114973050}
   m_Layer: 5
-  m_Name: CharacterCanvas
+  m_Name: ButtonSelectCharacter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -112,8 +112,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb17b52f44f7114408ae3461130afb27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SelectorButton: {fileID: 850348589442001232}
-  SelectorPointer: {fileID: 850348589556565920}
+  Button: {fileID: 850348589442001232}
+  Pointer: {fileID: 850348589556565920}
 --- !u!1 &850348589442001232
 GameObject:
   m_ObjectHideFlags: 0

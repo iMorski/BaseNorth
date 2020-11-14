@@ -21,11 +21,18 @@ public class ButtonSelect : MonoBehaviour
         {
             Button.SetActive(true);
         }
+
+        ButtonMove.Сlick += OnButtonMoveClick;
     }
 
     private void Update()
     {
         transform.rotation = CameraRotation.RotationQuaternion;
+    }
+
+    private void OnButtonMoveClick()
+    {
+        Pointer.SetActive(false);
     }
 
     private void OnButtonSelectClick(GameObject SelectButton, GameObject SelectCharacter)

@@ -1012,7 +1012,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &307911800
 Transform:
   m_ObjectHideFlags: 0
@@ -3557,6 +3557,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: ButtonChoose-02
       objectReference: {fileID: 0}
+    - target: {fileID: 4324296114243535946, guid: 46b6d283b476c04449cd4c1b5ccb07c3,
+        type: 3}
+      propertyPath: Character
+      value: 
+      objectReference: {fileID: 1612952942726601800, guid: a4108b220be0b8a43961ffe0223961fb,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 46b6d283b476c04449cd4c1b5ccb07c3, type: 3}
 --- !u!224 &1096976667 stripped
@@ -7468,5 +7474,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ButtonChoose-01
       objectReference: {fileID: 0}
+    - target: {fileID: 4324296114243535946, guid: 46b6d283b476c04449cd4c1b5ccb07c3,
+        type: 3}
+      propertyPath: Character
+      value: 
+      objectReference: {fileID: 1612952942726601800, guid: 94c8ed2952268ca4cae12cc35fda5805,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 46b6d283b476c04449cd4c1b5ccb07c3, type: 3}

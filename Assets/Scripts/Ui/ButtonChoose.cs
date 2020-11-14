@@ -46,7 +46,7 @@ public class ButtonChoose : MonoBehaviour
     {
         if (gameObject != ChooseButton)
         {
-            Disable();
+            Enable();
         }
     }
     

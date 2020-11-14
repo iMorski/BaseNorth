@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +13,7 @@ public class ButtonMove : MonoBehaviour
     private GameObject Character;
 
     private bool IsOn;
+    private bool IsOccupied;
 
     private void Awake()
     {
@@ -22,64 +22,75 @@ public class ButtonMove : MonoBehaviour
 
     private void Start()
     {
-        GameController.EnemySpawn += OnEnemySpawn;
-        GameController.EnemyMove += OnEnemyMove;
+        GameController.Spawn += OnSpawn;
+        GameController.Move += OnMove;
         
         ButtonChoose.Сlick += OnButtonChooseClick;
         ButtonSelect.Сlick += OnButtonSelectClick;
     }
 
-    private void OnEnemySpawn(Vector3 SpawnPosition)
+    private void OnSpawn(Vector3 SpawnPosition)
     {
-        if (IsOn && !(gameObject.transform.position != SpawnPosition))
+        Vector3 Position = gameObject.transform.position;
+        
+        if (!(Position != SpawnPosition))
         {
             Disable();
-
-            IsOn = false;
+            
+            IsOccupied = true;
         }
     }
     
-    private void OnEnemyMove(Vector3 MoveCurrentPosition, Vector3 MoveTargetPosition)
+    private void OnMove(Vector3 MoveCurrentPosition, Vector3 MoveNextPosition)
     {
         Vector3 Position = gameObject.transform.position;
         
         if (!(Position != MoveCurrentPosition))
         {
-            Enable();
+            if (IsOn)
+            {
+                Enable();
+            }
             
-            IsOn = true;
+            IsOccupied = false;
         }
-        else if (!(Position != MoveTargetPosition))
+        else if (!(Position != MoveNextPosition))
         {
             Disable();
-
-            IsOn = false;
+            
+            IsOccupied = true;
         }
     }
     
     private void OnButtonChooseClick(GameObject ChooseButton, GameObject ChooseCharacter)
     {
-        if (IsOn)
+        if (!IsOccupied)
         {
             Enable();
 
             Character = ChooseCharacter;
         }
+
+        IsOn = true;
     }
     
     private void OnButtonSelectClick(GameObject SelectButton, GameObject SelectCharacter)
     {
-        if (IsOn)
+        if (!IsOccupied)
         {
             Enable();
 
             Character = SelectCharacter;
         }
+        
+        IsOn = true;
     }
     
     private void OnButtonMoveClick()
     {
         Disable();
+        
+        IsOn = false;
     }
 
     public void OnClick()

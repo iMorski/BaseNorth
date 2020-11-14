@@ -5,11 +5,11 @@ public class GameController : MonoBehaviour
 {
     [SerializeField] private GameObject[] CharacterContainer;
     
-    public delegate void OnEnemySpawn(Vector3 Position);
-    public static event OnEnemySpawn EnemySpawn;
+    public delegate void OnSpawn(Vector3 Position);
+    public static event OnSpawn Spawn;
 
-    public delegate void OnEnemyMove(Vector3 CurrentPosition, Vector3 TargetPosition);
-    public static event OnEnemyMove EnemyMove;
+    public delegate void OnMove(Vector3 CurrentPosition, Vector3 TargetPosition);
+    public static event OnMove Move;
 
     public static List<GameObject> CharacterInGame = new List<GameObject>();
     public static List<string> CharacterInGameByName = new List<string>();
@@ -50,43 +50,23 @@ public class GameController : MonoBehaviour
                 {
                     for (int i = 0; i < CharacterInGameByName.Count; i++)
                     {
-                        if (!($"Ally-{Data.Key}" != CharacterInGameByName[i]) || !($"Enemy-{Data.Key}" != CharacterInGameByName[i]))
+                        if (!(RoomData.Value != FB.MyName) && !($"Ally-{Data.Key}" != CharacterInGameByName[i]))
                         {
-                            Movement CharacterInGameMovement = CharacterInGame[i].GetComponent<Movement>();
-
-                            if (!CharacterInGameMovement.Restriction)
-                            {
-                                Vector3 CurrentPosition = GetCharacterPositionByName(Data.Key);
-                                Vector3 TargetPosition = CalculatePosition(Data.Value);
-                                
-                                StartCoroutine(CharacterInGameMovement.FollowPath(TargetPosition));
-
-                                CharacterInGameMovement.Restriction = true;
-
-                                EnemyMove(CurrentPosition, TargetPosition);
-                            }
+                            MoveCharacter(i, Data.Value);
+                        }
+                        else if (RoomData.Value != FB.MyName && !($"Enemy-{Data.Key}" != CharacterInGameByName[i]))
+                        {
+                            MoveCharacter(i, Data.Value);
                         }
                     }
 
                     if (!(RoomData.Value != FB.MyName) && !CharacterInGameByName.Contains($"Ally-{Data.Key}"))
                     {
-                        GameObject Character = Instantiate(GetCharacterByName(Data.Key), CalculatePosition(Data.Value), Quaternion.identity);
-
-                        Character.name = $"Ally-{Data.Key}";
-                        
-                        CharacterInGame.Add(Character);
-                        CharacterInGameByName.Add(Character.name);
+                        SpawnCharacter(Data.Key, Data.Value, "Ally");
                     }
                     else if (RoomData.Value != FB.MyName && !CharacterInGameByName.Contains($"Enemy-{Data.Key}"))
                     {
-                        GameObject Character = Instantiate(GetCharacterByName(Data.Key), CalculatePosition(Data.Value), Quaternion.identity);
-
-                        Character.name = $"Enemy-{Data.Key}";
-                        
-                        CharacterInGame.Add(Character);
-                        CharacterInGameByName.Add(Character.name);
-                        
-                        EnemySpawn(CalculatePosition(Data.Value));
+                        SpawnCharacter(Data.Key, Data.Value, "Enemy");
                     }
                 }
             }
@@ -108,23 +88,6 @@ public class GameController : MonoBehaviour
         Name = Name.Remove(Name.IndexOf("-"), Name.Length - Name.IndexOf("-"));
 
         return CharacterContainer[CharacterContainerByName.IndexOf(Name)];
-    }
-
-    private Vector3 GetCharacterPositionByName(string Name)
-    {
-        if (Name.Contains("Ally"))
-        {
-            Name = Name.Replace("Ally-", "");
-        }
-        else if (Name.Contains("Enemy"))
-        {
-            Name = Name.Replace("Enemy-", "");
-        }
-
-        Name = Name.Replace("Character-", "");
-        Name = Name.Remove(Name.IndexOf("-"), Name.Length - Name.IndexOf("-"));
-
-        return CharacterContainer[CharacterContainerByName.IndexOf(Name)].transform.position;
     }
 
     private Vector3 CalculatePosition(string Raw)
@@ -158,6 +121,35 @@ public class GameController : MonoBehaviour
         }
 
         return Position;
+    }
+
+    private void SpawnCharacter(string Name, string Position, string Faction)
+    {
+        GameObject Character = Instantiate(GetCharacterByName(Name), CalculatePosition(Position), Quaternion.identity);
+
+        Character.name = $"{Faction}-{Name}";
+                        
+        CharacterInGame.Add(Character);
+        CharacterInGameByName.Add(Character.name);
+                        
+        Spawn(Character.transform.position);
+    }
+
+    private void MoveCharacter(int i, string Position)
+    {
+        Movement CharacterInGameMovement = CharacterInGame[i].GetComponent<Movement>();
+                            
+        Vector3 CurrentPosition = CharacterInGame[i].transform.position;
+        Vector3 NextPosition = CalculatePosition(Position);
+                            
+        if (CurrentPosition != NextPosition && !CharacterInGameMovement.Restriction)
+        {
+            StartCoroutine(CharacterInGameMovement.FollowPath(NextPosition));
+
+            CharacterInGameMovement.Restriction = true;
+
+            Move(CurrentPosition, NextPosition);
+        }
     }
 
     #if UNITY_EDITOR

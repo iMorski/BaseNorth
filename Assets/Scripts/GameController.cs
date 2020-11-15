@@ -137,16 +137,12 @@ public class GameController : MonoBehaviour
 
     private void MoveCharacter(int i, string Position)
     {
-        Movement CharacterInGameMovement = CharacterInGame[i].GetComponent<Movement>();
-                            
         Vector3 CurrentPosition = CharacterInGame[i].transform.position;
         Vector3 NextPosition = CalculatePosition(Position);
                             
-        if (CurrentPosition != NextPosition && !CharacterInGameMovement.Restriction)
+        if (CurrentPosition != NextPosition)
         {
-            StartCoroutine(CharacterInGameMovement.FollowPath(NextPosition));
-
-            CharacterInGameMovement.Restriction = true;
+            CharacterInGame[i].GetComponent<CharacterController>().SetPath(NextPosition);
 
             Move(CurrentPosition, NextPosition);
         }

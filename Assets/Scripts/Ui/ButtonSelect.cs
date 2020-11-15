@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class ButtonSelect : MonoBehaviour
 {
-    [SerializeField] private GameObject Button;
-    [SerializeField] private GameObject Pointer;
+    public GameObject Button;
+    public GameObject Pointer;
     
     public delegate void OnСlick(GameObject Button, GameObject Character);
     public static event OnСlick Сlick;
@@ -19,7 +20,7 @@ public class ButtonSelect : MonoBehaviour
         
         if (gameObject.transform.parent.name.Contains("Ally"))
         {
-            Button.SetActive(true);
+            EnableButton();
         }
 
         ButtonMove.Сlick += OnButtonMoveClick;
@@ -32,21 +33,43 @@ public class ButtonSelect : MonoBehaviour
 
     private void OnButtonMoveClick()
     {
-        Pointer.SetActive(false);
+        DisablePointer();
     }
 
     private void OnButtonSelectClick(GameObject SelectButton, GameObject SelectCharacter)
     {
         if (gameObject != SelectButton)
         {
-            Pointer.SetActive(false);
+            DisablePointer();
         }
     }
     
     public void OnClick()
     {
-        Pointer.SetActive(true);
+        EnablePointer();
         
         Сlick(gameObject, transform.parent.gameObject);
+    }
+
+    private void EnableButton()
+    {
+        Button.GetComponent<Button>().enabled = true;
+        Button.GetComponent<Image>().enabled = true;
+    }
+    
+    private void DisableButton()
+    {
+        Button.GetComponent<Button>().enabled = false;
+        Button.GetComponent<Image>().enabled = false;
+    }
+    
+    private void EnablePointer()
+    {
+        Pointer.GetComponent<Image>().enabled = true;
+    }
+    
+    private void DisablePointer()
+    {
+        Pointer.GetComponent<Image>().enabled = false;
     }
 }

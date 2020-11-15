@@ -44,10 +44,10 @@ public class FB : MonoBehaviour
 
     public static void Check()
     {
+        Debug.Log("Step: 0.0 - Checking resources");
+        
         ConnectionStep = 0.0;
         ConnectionStepChange?.Invoke();
-        
-        Debug.Log("Step: 0.0 - Checking resources");
         
         FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(Task => 
         {
@@ -72,10 +72,10 @@ public class FB : MonoBehaviour
 
             BaseReference = FirebaseDatabase.DefaultInstance.RootReference;
             
+            Debug.Log("Step: 1.0 - Checking done");
+            
             ConnectionStep = 1.0;
             ConnectionStepChange?.Invoke();
-            
-            Debug.Log("Step: 1.0 - Checking done");
         });
     }
     
@@ -140,10 +140,10 @@ public class FB : MonoBehaviour
 
     public static void Connect()
     {
+        Debug.Log("Step: 2.0 - Connecting");
+        
         ConnectionStep = 2.0;
         ConnectionStepChange?.Invoke();
-        
-        Debug.Log("Step: 2.0 - Connecting");
         
         BaseReference.GetValueAsync().ContinueWith(Task =>
         {
@@ -172,10 +172,10 @@ public class FB : MonoBehaviour
 
             if (Lobby.Children.Count() + 1 >= RoomCapacity)
             {
+                Debug.Log("Step: 4.0 - Creating room");
+                
                 ConnectionStep = 4.0;
                 ConnectionStepChange?.Invoke();
-                
-                Debug.Log("Step: 4.0 - Creating room");
                 
                 MyRoom = GenerateKey(PrettyTextRoom);
 
@@ -191,10 +191,10 @@ public class FB : MonoBehaviour
             }
             else
             {
+                Debug.Log("Step: 3.0 - Joining lobby");
+                
                 ConnectionStep = 3.0;
                 ConnectionStepChange?.Invoke();
-                
-                Debug.Log("Step: 3.0 - Joining lobby");
                 
                 BaseTracking = BaseReference.Child("Lobby").Child(MyName);
                 BaseTracking.ValueChanged += OnLobbyChange;
@@ -206,10 +206,10 @@ public class FB : MonoBehaviour
     {
         if (!(ConnectionStep != 3.1) && !(Argument.Snapshot.Value != null))
         {
+            Debug.Log("Step: 3.2 - Receiving invitation");
+            
             ConnectionStep = 3.2;
             ConnectionStepChange?.Invoke();
-            
-            Debug.Log("Step: 3.2 - Receiving invitation");
             
             BaseTracking.ValueChanged -= OnLobbyChange;
             BaseTracking = BaseReference.Child("ActiveRoom");
@@ -221,11 +221,11 @@ public class FB : MonoBehaviour
             {
                 BaseTracking.Child(Data.Key).SetValueAsync(Data.Value);
             }
+            
+            Debug.Log("Step: 3.1 - Waiting in lobby");
 
             ConnectionStep = 3.1;
             ConnectionStepChange?.Invoke();
-            
-            Debug.Log("Step: 3.1 - Waiting in lobby");
         }
     }
 
@@ -257,20 +257,20 @@ public class FB : MonoBehaviour
             return Room;
         }
         
+        Debug.Log("Step: 3.3 - Checking room list");
+        
         ConnectionStep = 3.3;
         ConnectionStepChange?.Invoke();
-        
-        Debug.Log("Step: 3.3 - Checking room list");
         
         DataSnapshot ActiveRoom = Argument.Snapshot;
         MyRoom = Search(ActiveRoom, MyName);
 
         if (MyRoom != "")
         {
+            Debug.Log($"Step: 3.4 - {MyRoom}");
+            
             ConnectionStep = 3.4;
             ConnectionStepChange?.Invoke();
-            
-            Debug.Log($"Step: 3.4 - {MyRoom}");
             
             BaseTracking.ValueChanged -= OnActiveRoomChange;
             BaseTracking = BaseReference.Child("ActiveRoom").Child(MyRoom);
@@ -286,17 +286,17 @@ public class FB : MonoBehaviour
         {
             if (ConnectionStep < 4 && ConnectionStep != 3.5)
             {
+                Debug.Log("Step: 3.5 - Waiting in room");
+                
                 ConnectionStep = 3.5;
                 ConnectionStepChange?.Invoke();
-                
-                Debug.Log("Step: 3.5 - Waiting in room");
             }
             else if (ConnectionStep < 5 && ConnectionStep != 4.3)
             {
+                Debug.Log("Step: 4.3 - Waiting in room");
+                
                 ConnectionStep = 4.3;
                 ConnectionStepChange?.Invoke();
-                
-                Debug.Log("Step: 4.3 - Waiting in room");
             }
             
             if (!(ConnectionStep != 5))
@@ -313,20 +313,20 @@ public class FB : MonoBehaviour
             else if (!(Room.Children.Count() != RoomCapacity))
             {
                 Collect(Room);
+                
+                Debug.Log("Step: 5.0 - Ready");
 
                 ConnectionStep = 5.0;
                 ConnectionStepChange?.Invoke();
-                
-                Debug.Log("Step: 5.0 - Ready");
             }
         }
         else
         {
-            ConnectionStep = 4.1;
-            ConnectionStepChange?.Invoke();
-            
             Debug.Log("Step: 4.1 - Checking lobby");
             
+            ConnectionStep = 4.1;
+            ConnectionStepChange?.Invoke();
+
             BaseReference.Child("Lobby").GetValueAsync().ContinueWith(Task =>
             {
                 if (Task.IsFaulted) return;
@@ -346,12 +346,12 @@ public class FB : MonoBehaviour
                     {
                         BaseTracking.Child(LastName).Child(Data.Key).SetValueAsync(Data.Value);
                     }
+                    
+                    Debug.Log($"Step: 4.2 - Inviting {LastName}");
                 
                     ConnectionStep = 4.2;
                     ConnectionStepChange?.Invoke();
-                    
-                    Debug.Log($"Step: 4.2 - Inviting {LastName}");
-                    
+
                     BaseReference.Child("Lobby").Child(LastName).SetValueAsync(null);
                 }
             });

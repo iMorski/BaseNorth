@@ -24,6 +24,8 @@ public class ButtonMove : MonoBehaviour
     {
         GameController.Spawn += OnSpawn;
         GameController.Move += OnMove;
+
+        CharacterController.Die += OnDie;
         
         ButtonChoose.Сlick += OnButtonChooseClick;
         ButtonSelect.Сlick += OnButtonSelectClick;
@@ -38,6 +40,21 @@ public class ButtonMove : MonoBehaviour
             Disable();
             
             IsOccupied = true;
+        }
+    }
+
+    private void OnDie(Vector3 DiePosition)
+    {
+        Vector3 Position = gameObject.transform.position;
+        
+        if (!(Position != DiePosition))
+        {
+            if (IsOn)
+            {
+                Enable();
+            }
+            
+            IsOccupied = false;
         }
     }
     
@@ -98,9 +115,9 @@ public class ButtonMove : MonoBehaviour
         string Position01 = Mathf.Round(gameObject.transform.position.x).ToString();
         string Position02 = Mathf.Round(gameObject.transform.position.z).ToString();
 
-        foreach (string CharacterInGameByName in GameController.CharacterInGameByName)
+        foreach (string Name in GameController.CharacterInGameByName)
         {
-            if (!(Character.name != CharacterInGameByName))
+            if (!(Character.name != Name))
             {
                 FB.MyData[Character.name.Replace("Ally-", "")] = $"{Position01} : {Position02}";
                 FB.SetValue();
@@ -113,9 +130,9 @@ public class ButtonMove : MonoBehaviour
         
         int Count = 0;
 
-        foreach (KeyValuePair<string, string> Data in FB.MyData)
+        foreach (string Name in GameController.CharacterInGameByName)
         {
-            if (Data.Key.Contains(Character.name))
+            if (Name.Contains($"Ally-Character-{Character.name}"))
             {
                 Count++;
             }

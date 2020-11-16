@@ -1,10 +1,12 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class ButtonSelect : MonoBehaviour
 {
-    public GameObject Button;
-    public GameObject Pointer;
+    public Button Button;
+    public Image Plane;
+    public Image Pointer;
     
     public delegate void OnСlick(GameObject Button, GameObject Character);
     public static event OnСlick Сlick;
@@ -53,23 +55,23 @@ public class ButtonSelect : MonoBehaviour
 
     private void EnableButton()
     {
-        Button.GetComponent<Button>().enabled = true;
-        Button.GetComponent<Image>().enabled = true;
+        Button.enabled = true;
+        Plane.enabled = true;
     }
     
     private void DisableButton()
     {
-        Button.GetComponent<Button>().enabled = false;
-        Button.GetComponent<Image>().enabled = false;
+        Button.enabled = false;
+        Plane.enabled = false;
     }
     
     private void EnablePointer()
     {
-        Pointer.GetComponent<Image>().enabled = true;
+        Pointer.enabled = true;
     }
     
     private void DisablePointer()
     {
-        Pointer.GetComponent<Image>().enabled = false;
+        Pointer.enabled = false;
     }
 }

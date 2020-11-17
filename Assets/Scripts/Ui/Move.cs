@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class ButtonMove : MonoBehaviour
+public class Move : MonoBehaviour
 {
     [SerializeField] private Button Button;
     [SerializeField] private Image Plane;
@@ -10,14 +9,14 @@ public class ButtonMove : MonoBehaviour
     public delegate void OnСlick();
     public static event OnСlick Сlick;
 
-    private GameObject Character;
-
     private bool IsOn;
     private bool IsOccupied;
 
+    private GameObject Character;
+
     private void Awake()
     {
-        Сlick += OnButtonMoveClick;
+        Сlick += OnMoveClick;
     }
 
     private void Start()
@@ -27,8 +26,8 @@ public class ButtonMove : MonoBehaviour
 
         CharacterController.Die += OnDie;
         
-        ButtonChoose.Сlick += OnButtonChooseClick;
-        ButtonSelect.Сlick += OnButtonSelectClick;
+        Choose.Сlick += OnChooseClick;
+        Select.Сlick += OnSelectClick;
     }
 
     private void OnSpawn(Vector3 SpawnPosition)
@@ -40,21 +39,6 @@ public class ButtonMove : MonoBehaviour
             Disable();
             
             IsOccupied = true;
-        }
-    }
-
-    private void OnDie(Vector3 DiePosition)
-    {
-        Vector3 Position = gameObject.transform.position;
-        
-        if (!(Position != DiePosition))
-        {
-            if (IsOn)
-            {
-                Enable();
-            }
-            
-            IsOccupied = false;
         }
     }
     
@@ -78,8 +62,23 @@ public class ButtonMove : MonoBehaviour
             IsOccupied = true;
         }
     }
+
+    private void OnDie(Vector3 DiePosition)
+    {
+        Vector3 Position = gameObject.transform.position;
+        
+        if (!(Position != DiePosition))
+        {
+            if (IsOn)
+            {
+                Enable();
+            }
+            
+            IsOccupied = false;
+        }
+    }
     
-    private void OnButtonChooseClick(GameObject ChooseButton, GameObject ChooseCharacter)
+    private void OnChooseClick(GameObject ChooseButton, GameObject ChooseCharacter)
     {
         if (!IsOccupied)
         {
@@ -91,7 +90,7 @@ public class ButtonMove : MonoBehaviour
         IsOn = true;
     }
     
-    private void OnButtonSelectClick(GameObject SelectButton, GameObject SelectCharacter)
+    private void OnSelectClick(GameObject SelectButton, GameObject SelectCharacter)
     {
         if (!IsOccupied)
         {
@@ -103,7 +102,7 @@ public class ButtonMove : MonoBehaviour
         IsOn = true;
     }
     
-    private void OnButtonMoveClick()
+    private void OnMoveClick()
     {
         Disable();
         
@@ -115,11 +114,13 @@ public class ButtonMove : MonoBehaviour
         string Position01 = Mathf.Round(gameObject.transform.position.x).ToString();
         string Position02 = Mathf.Round(gameObject.transform.position.z).ToString();
 
+        int Health = Character.GetComponent<CharacterController>().Health;
+
         foreach (string Name in GameController.CharacterInGameByName)
         {
             if (!(Character.name != Name))
             {
-                FB.MyData[Character.name.Replace("Ally-", "")] = $"{Position01} : {Position02}";
+                FB.MyData[Character.name.Replace("Ally-", "")] = $"{Health} ; {Position01} : {Position02}";
                 FB.SetValue();
                 
                 Сlick();
@@ -138,7 +139,7 @@ public class ButtonMove : MonoBehaviour
             }
         }
         
-        FB.MyData[$"Character-{Character.name}-0{Count + 1}"] = $"{Position01} : {Position02}";
+        FB.MyData[$"Character-{Character.name}-0{Count + 1}"] = $"{Health} ; {Position01} : {Position02}";
         FB.SetValue();
 
         Сlick();

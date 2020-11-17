@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class ButtonChoose : MonoBehaviour
+public class Choose : MonoBehaviour
 {
     [SerializeField] private GameObject Character;
     [SerializeField] private RectTransform Position;
@@ -12,15 +12,15 @@ public class ButtonChoose : MonoBehaviour
 
     private void Awake()
     {
-        Сlick += OnButtonChooseСlick;
+        Сlick += OnChooseСlick;
     }
 
     private void Start()
     {
         FB.ConnectionStepChange += OnConnectionStepChange;
         
-        ButtonSelect.Сlick += OnButtonSelectClick;
-        ButtonMove.Сlick += OnButtonMoveClick;
+        Select.Сlick += OnSelectClick;
+        Move.Сlick += OnMoveClick;
     }
     
     private void OnConnectionStepChange()
@@ -31,17 +31,17 @@ public class ButtonChoose : MonoBehaviour
         }
     }
     
-    private void OnButtonSelectClick(GameObject SelectButton, GameObject SelectCharacter)
+    private void OnSelectClick(GameObject SelectButton, GameObject SelectCharacter)
     {
         Enable();
     }
 
-    private void OnButtonMoveClick()
+    private void OnMoveClick()
     {
         Enable();
     }
 
-    private void OnButtonChooseСlick(GameObject ChooseButton, GameObject ChooseCharacter)
+    private void OnChooseСlick(GameObject ChooseButton, GameObject ChooseCharacter)
     {
         if (gameObject != ChooseButton)
         {

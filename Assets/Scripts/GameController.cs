@@ -85,40 +85,29 @@ public class GameController : MonoBehaviour
         }
 
         Name = Name.Replace("Character-", "");
-        Name = Name.Remove(Name.IndexOf("-"), Name.Length - Name.IndexOf("-"));
 
+        for (int i = Name.Length - 1; i > 0; i--)
+        {
+            if (!(Name[i].ToString() != "-"))
+            {
+                Name = Name.Remove(i, Name.Length - i);
+
+                break;
+            }
+        }
+        
         return CharacterContainer[CharacterContainerByName.IndexOf(Name)];
     }
 
     private Vector3 CalculatePosition(string Raw)
     {
         Vector3 Position = new Vector3();
-        
-        for (int i = 0; i < Raw.Length; i++)
-        {
-            if (!(i != 0))
-            {
-                if (Raw[i].ToString() != "-")
-                {
-                    Position.x = int.Parse(Raw[i].ToString());
-                }
-                else
-                {
-                    Position.x = -int.Parse(Raw[i + 1].ToString());
-                }
-            }
-            else if (!(i != Raw.Length - 1))
-            {
-                if (Raw[i - 1].ToString() != "-")
-                {
-                    Position.z = int.Parse(Raw[i].ToString());
-                }
-                else
-                {
-                    Position.z = -int.Parse(Raw[i].ToString());
-                }
-            }
-        }
+
+        int StatSeparator = Raw.IndexOf(";");
+        int PositionSeparator = Raw.IndexOf(":");
+
+        Position.x = int.Parse(Raw.Substring(StatSeparator + 1, (PositionSeparator - 1) - (StatSeparator + 1)));
+        Position.z = int.Parse(Raw.Substring(PositionSeparator + 1, Raw.Length - (PositionSeparator + 1)));
 
         return Position;
     }

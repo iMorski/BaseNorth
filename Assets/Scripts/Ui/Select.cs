@@ -1,8 +1,7 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class ButtonSelect : MonoBehaviour
+public class Select : MonoBehaviour
 {
     public Button Button;
     public Image Plane;
@@ -13,7 +12,7 @@ public class ButtonSelect : MonoBehaviour
     
     private void Awake()
     {
-        Сlick += OnButtonSelectClick;
+        Сlick += OnSelectClick;
     }
 
     private void Start()
@@ -22,10 +21,10 @@ public class ButtonSelect : MonoBehaviour
         
         if (gameObject.transform.parent.name.Contains("Ally"))
         {
-            EnableButton();
+            UiEnable();
         }
 
-        ButtonMove.Сlick += OnButtonMoveClick;
+        Move.Сlick += OnMoveClick;
     }
 
     private void Update()
@@ -33,44 +32,54 @@ public class ButtonSelect : MonoBehaviour
         transform.rotation = CameraRotation.RotationQuaternion;
     }
 
-    private void OnButtonMoveClick()
+    private void OnMoveClick()
     {
-        DisablePointer();
+        PointerDisable();
     }
 
-    private void OnButtonSelectClick(GameObject SelectButton, GameObject SelectCharacter)
+    private void OnSelectClick(GameObject SelectButton, GameObject SelectCharacter)
     {
         if (gameObject != SelectButton)
         {
-            DisablePointer();
+            PointerDisable();
         }
     }
     
     public void OnClick()
     {
-        EnablePointer();
+        PointerEnable();
         
         Сlick(gameObject, transform.parent.gameObject);
     }
 
-    private void EnableButton()
+    public void UiEnable()
     {
         Button.enabled = true;
         Plane.enabled = true;
     }
     
-    private void DisableButton()
+    public void UiDisable()
     {
         Button.enabled = false;
         Plane.enabled = false;
     }
+
+    public void ButtonEnable()
+    {
+        Button.enabled = true;
+    }
     
-    private void EnablePointer()
+    public void ButtonDisable()
+    {
+        Button.enabled = false;
+    }
+    
+    public void PointerEnable()
     {
         Pointer.enabled = true;
     }
     
-    private void DisablePointer()
+    public void PointerDisable()
     {
         Pointer.enabled = false;
     }

@@ -3555,13 +3555,13 @@ PrefabInstance:
     - target: {fileID: 1959318537268329250, guid: 46b6d283b476c04449cd4c1b5ccb07c3,
         type: 3}
       propertyPath: m_Name
-      value: ButtonChoose-02
+      value: Button-Choose-02
       objectReference: {fileID: 0}
     - target: {fileID: 4324296114243535946, guid: 46b6d283b476c04449cd4c1b5ccb07c3,
         type: 3}
       propertyPath: Character
       value: 
-      objectReference: {fileID: 1612952942726601800, guid: 7d37eaa25707f084492a1100ba575fba,
+      objectReference: {fileID: 1612952942726601800, guid: f22dc338fe8d7d74e9db076ab554ffdc,
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 46b6d283b476c04449cd4c1b5ccb07c3, type: 3}
@@ -4692,7 +4692,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CharacterContainer:
   - {fileID: 1612952942726601800, guid: 94c8ed2952268ca4cae12cc35fda5805, type: 3}
-  - {fileID: 1612952942726601800, guid: 7d37eaa25707f084492a1100ba575fba, type: 3}
+  - {fileID: 1612952942726601800, guid: f22dc338fe8d7d74e9db076ab554ffdc, type: 3}
 --- !u!4 &1435257643
 Transform:
   m_ObjectHideFlags: 0
@@ -7472,7 +7472,7 @@ PrefabInstance:
     - target: {fileID: 1959318537268329250, guid: 46b6d283b476c04449cd4c1b5ccb07c3,
         type: 3}
       propertyPath: m_Name
-      value: ButtonChoose-01
+      value: Button-Choose-01
       objectReference: {fileID: 0}
     - target: {fileID: 4324296114243535946, guid: 46b6d283b476c04449cd4c1b5ccb07c3,
         type: 3}

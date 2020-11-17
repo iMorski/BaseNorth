@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class CheckDistance : MonoBehaviour
+public class ColliderSearch : MonoBehaviour
 {
     private GameObject Character;
     
-    public List<GameObject> EnemyInDistance = new List<GameObject>();
+    [NonSerialized] public List<GameObject> EnemyInDistance = new List<GameObject>();
 
     private void Awake()
     {
@@ -18,18 +19,6 @@ public class CheckDistance : MonoBehaviour
             Character.name.Contains("Enemy") && other.gameObject.name.Contains("Ally"))
         {
             EnemyInDistance.Add(other.gameObject);
-        }
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        if (Character.name.Contains("Ally") && other.gameObject.name.Contains("Enemy")||
-            Character.name.Contains("Enemy") && other.gameObject.name.Contains("Ally"))
-        {
-            if (!EnemyInDistance.Contains(other.gameObject))
-            {
-                EnemyInDistance.Add(other.gameObject);
-            }
         }
     }
 

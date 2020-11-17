@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ColliderSearch : MonoBehaviour
+public class Check : MonoBehaviour
 {
-    private GameObject Character;
+    [NonSerialized] public List<GameObject> Enemy = new List<GameObject>();
     
-    [NonSerialized] public List<GameObject> EnemyInDistance = new List<GameObject>();
+    private GameObject Character;
 
     private void Awake()
     {
@@ -18,7 +18,7 @@ public class ColliderSearch : MonoBehaviour
         if (Character.name.Contains("Ally") && other.gameObject.name.Contains("Enemy") ||
             Character.name.Contains("Enemy") && other.gameObject.name.Contains("Ally"))
         {
-            EnemyInDistance.Add(other.gameObject);
+            Enemy.Add(other.gameObject);
         }
     }
 
@@ -27,7 +27,7 @@ public class ColliderSearch : MonoBehaviour
         if (Character.name.Contains("Ally") && other.gameObject.name.Contains("Enemy") ||
             Character.name.Contains("Enemy") && other.gameObject.name.Contains("Ally"))
         {
-            EnemyInDistance.Remove(other.gameObject);
+            Enemy.Remove(other.gameObject);
         }
     }
 }

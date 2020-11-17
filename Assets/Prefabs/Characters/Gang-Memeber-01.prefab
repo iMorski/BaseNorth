@@ -679,7 +679,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Health: 100
   Damage: 10
-  Speed: 0.625
+  Speed: 0.75
   PositionSmoothValue: 0.5
   RotationSmoothValue: 0.75
   BloodFX: {fileID: 1362418652685942, guid: c1dbd0ccf88468c449907ae6a15149a8, type: 3}
@@ -4352,7 +4352,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 727a3c2e24e7f5a49b70842712983a45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyInDistance: []
 --- !u!1001 &850348588812250672
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -10,6 +10,9 @@ public class GameController : MonoBehaviour
 
     public delegate void OnMove(Vector3 CurrentPosition, Vector3 TargetPosition);
     public static event OnMove Move;
+    
+    public delegate void OnAttack(GameObject Character, int Health);
+    public static event OnAttack Attack;
 
     public static List<GameObject> CharacterInGame = new List<GameObject>();
     public static List<string> CharacterInGameByName = new List<string>();
@@ -50,13 +53,11 @@ public class GameController : MonoBehaviour
                 {
                     for (int i = 0; i < CharacterInGameByName.Count; i++)
                     {
-                        if (!(RoomData.Value != FB.MyName) && !($"Ally-{Data.Key}" != CharacterInGameByName[i]))
+                        if (!(RoomData.Value != FB.MyName) && !($"Ally-{Data.Key}" != CharacterInGameByName[i]) ||
+                            RoomData.Value != FB.MyName && !($"Enemy-{Data.Key}" != CharacterInGameByName[i]))
                         {
                             MoveCharacter(i, Data.Value);
-                        }
-                        else if (RoomData.Value != FB.MyName && !($"Enemy-{Data.Key}" != CharacterInGameByName[i]))
-                        {
-                            MoveCharacter(i, Data.Value);
+                            AttackCharacter(i, Data.Value);
                         }
                     }
 
@@ -131,9 +132,20 @@ public class GameController : MonoBehaviour
                             
         if (CurrentPosition != NextPosition)
         {
-            CharacterInGame[i].GetComponent<CharacterController>().SetPath(NextPosition);
+            CharacterInGame[i].GetComponent<CharacterController>().SetPosition(NextPosition);
 
             Move(CurrentPosition, NextPosition);
+        }
+    }
+
+    private void AttackCharacter(int i, string Health)
+    {
+        int CharacterHealth = CharacterInGame[i].GetComponent<CharacterController>().Health;
+        int InDataHealth = int.Parse(Health.Substring(0, Health.IndexOf(" ")));
+
+        if (CharacterHealth != InDataHealth)
+        {
+            Attack(CharacterInGame[i], InDataHealth);
         }
     }
 

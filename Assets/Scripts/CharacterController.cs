@@ -1,11 +1,11 @@
 ﻿using System.Collections;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class CharacterController : MonoBehaviour
 {
     public int Health;
+
     [SerializeField] private int Damage;
     [SerializeField] private float Speed;
     [Range(0.0f, 1.0f)][SerializeField] private float PositionSmoothValue;
@@ -15,39 +15,56 @@ public class CharacterController : MonoBehaviour
     
     public delegate void OnDie(Vector3 Position);
     public static event OnDie Die;
-
-    private Collider Collider;
-    private ColliderSearch ColliderSearch;
     
+    private Check Check;
     private Animator Animator;
     private Select Select;
 
     private void Awake()
     {
-        Collider = GetComponent<Collider>();
-        ColliderSearch = GetComponentInChildren<ColliderSearch>();
-        
+        Check = GetComponentInChildren<Check>();
         Animator = GetComponentInChildren<Animator>();
         Select = GetComponentInChildren<Select>();
-
-        StartCoroutine(Search());
-    }
-
-    public void SetPath(Vector3 NextPosition)
-    {
-        Vector3 CurrentPosition = transform.position;
         
-        StopAllCoroutines();
-
-        Animator.CrossFade("Gun-1H-Run", 0.25f);
-        Select.ButtonDisable();
-
-        StartCoroutine(Move(NextPosition));
-        StartCoroutine(Rotate(CurrentPosition, NextPosition));
+        if (gameObject.name.Contains("Enemy"))
+        {
+            StartCoroutine(Search());
+        }
     }
 
-    public void Reduce()
+    private void Start()
     {
+        GameController.Attack += OnAttack;
+    }
+
+    private void OnAttack(GameObject Character, int InDataHealth)
+    {
+        if (!(gameObject != Character))
+        {
+            Health = InDataHealth;
+            
+            Instantiate(BloodFX, BloodFXSpawnPosition);
+        }
+        else if (Check.Enemy.Contains(Character))
+        {
+            Vector3 CurrentPosition = transform.position;
+            Vector3 NextPosition = Character.transform.position;
+
+            StartCoroutine(Rotate(CurrentPosition, NextPosition));
+            
+            Animator.CrossFade("Gun-1H-Fire", 0.25f);
+        }
+    }
+
+    public void Reduce(int IncomingDamage)
+    {
+        string Name = gameObject.name.Replace("Ally-", "");
+        
+        FB.MyData[Name] = FB.MyData[Name].Replace(Health.ToString(), (Health - IncomingDamage).ToString());
+        FB.SetValue();
+        
+        /*
+        
         Instantiate(BloodFX, BloodFXSpawnPosition);
         
         if (!(Health > 0.0f))
@@ -56,8 +73,8 @@ public class CharacterController : MonoBehaviour
             
             StopAllCoroutines();
 
-            Animator.CrossFade("Death", 0.25f);
-            Select.UiDisable();
+            CharacterAnimator.CrossFade("Death", 0.25f);
+            CharacterSelect.UiDisable();
 
             GameController.CharacterInGame.Remove(gameObject);
             GameController.CharacterInGameByName.Remove(gameObject.name);
@@ -65,22 +82,41 @@ public class CharacterController : MonoBehaviour
             FB.MyData[gameObject.name.Replace("Ally-", "")] = null;
             FB.SetValue();
         }
+        
+        */
+    }
+
+    public void SetPosition(Vector3 NextPosition)
+    {
+        Vector3 CurrentPosition = transform.position;
+        
+        StopAllCoroutines();
+
+        Animator.CrossFade("Gun-1H-Run", 0.25f);
+        
+        Select.ButtonDisable();
+
+        StartCoroutine(Move(NextPosition));
+        StartCoroutine(Rotate(CurrentPosition, NextPosition));
     }
 
     private IEnumerator Move(Vector3 NextPosition)
     {
         while (transform.position != NextPosition)
         {
-            float Step = (PositionSmoothValue * 10) * Time.deltaTime;
-            transform.position = Vector3.MoveTowards(transform.position, NextPosition, Step);
+            transform.position = Vector3.MoveTowards(transform.position, NextPosition, PositionSmoothValue * 10 * Time.deltaTime);
         
             yield return new WaitForEndOfFrame();
         }
         
         Animator.CrossFade("Gun-1H-Wait", 0.25f);
+        
         Select.ButtonEnable();
 
-        StartCoroutine(Search());
+        if (gameObject.name.Contains("Enemy"))
+        {
+            StartCoroutine(Search());
+        }
     }
 
     private IEnumerator Rotate(Vector3 CurrentPosition, Vector3 NextPosition)
@@ -89,8 +125,7 @@ public class CharacterController : MonoBehaviour
             
         while (transform.rotation != Rotation)
         {
-            float Step = (RotationSmoothValue * 1000) * Time.deltaTime;
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, Rotation, Step);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, Rotation, RotationSmoothValue * 1000 * Time.deltaTime);
 
             yield return new WaitForEndOfFrame();
         }
@@ -102,45 +137,29 @@ public class CharacterController : MonoBehaviour
 
         while (!(Enemy != null))
         {
-            if (ColliderSearch.EnemyInDistance.Any())
+            if (Check.Enemy.Any())
             {
-                Enemy = ColliderSearch.EnemyInDistance[0];
+                Enemy = Check.Enemy[0];
                 
-                StopCoroutine(Search());
-                StartCoroutine(Attack(Enemy));
+                StartCoroutine(GhostAttack(Enemy));
             }
             
             yield return new WaitForEndOfFrame();
         }
     }
     
-    private IEnumerator Attack(GameObject Enemy)
+    private IEnumerator GhostAttack(GameObject Enemy)
     {
-        CharacterController EnemyController = Enemy.GetComponent<CharacterController>();
+        CharacterController Controller = Enemy.GetComponent<CharacterController>();
         
-        Animator.CrossFade("Gun-1H-Fire", 0.25f);
-        
-        while (ColliderSearch.EnemyInDistance.Contains(Enemy))
+        while (Check.Enemy.Contains(Enemy))
         {
-            Vector3 CurrentPosition = transform.position;
-            Vector3 NextPosition = Enemy.transform.position;
-
-            StartCoroutine(Rotate(CurrentPosition, NextPosition));
-
-            if (!(EnemyController.Health != 0.0f) || EnemyController.Health < 0.0f)
+            if (Controller.Health > 0.0f)
             {
-                Animator.CrossFade("Gun-1H-Wait", 0.0f);
-                ColliderSearch.EnemyInDistance.Remove(Enemy);
-            }
-            else
-            {
-                EnemyController.Health = EnemyController.Health - Damage;
-                EnemyController.Reduce();
-                
-                Debug.Log("Enemy Health: " + EnemyController.Health);
+                Controller.Reduce(Damage);
             }
 
-            yield return new WaitForSeconds(Speed); 
+            yield return new WaitForSeconds(Speed);
         }
     }
 }

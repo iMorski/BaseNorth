@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class Select : MonoBehaviour
+public class CharacterSelection : MonoBehaviour
 {
     public Button Button;
     public Image Plane;
@@ -21,10 +21,11 @@ public class Select : MonoBehaviour
         
         if (gameObject.transform.parent.name.Contains("Ally"))
         {
-            UiEnable();
+            Button.enabled = true;
+            Plane.enabled = true;
         }
 
-        Move.Сlick += OnMoveClick;
+        CharacterMovement.Сlick += OnMoveClick;
     }
 
     private void Update()
@@ -34,53 +35,27 @@ public class Select : MonoBehaviour
 
     private void OnMoveClick()
     {
-        PointerDisable();
+        Pointer.enabled = false;
     }
 
     private void OnSelectClick(GameObject SelectButton, GameObject SelectCharacter)
     {
         if (gameObject != SelectButton)
         {
-            PointerDisable();
+            Pointer.enabled = false;
         }
     }
     
     public void OnClick()
     {
-        PointerEnable();
+        Pointer.enabled = true;
         
         Сlick(gameObject, transform.parent.gameObject);
     }
-
-    public void UiEnable()
-    {
-        Button.enabled = true;
-        Plane.enabled = true;
-    }
     
-    public void UiDisable()
+    private void OnDestroy()
     {
-        Button.enabled = false;
-        Plane.enabled = false;
-    }
-
-    public void ButtonEnable()
-    {
-        Button.enabled = true;
-    }
-    
-    public void ButtonDisable()
-    {
-        Button.enabled = false;
-    }
-    
-    public void PointerEnable()
-    {
-        Pointer.enabled = true;
-    }
-    
-    public void PointerDisable()
-    {
-        Pointer.enabled = false;
+        CharacterMovement.Сlick -= OnMoveClick;
+        CharacterSelection.Сlick -= OnSelectClick;
     }
 }

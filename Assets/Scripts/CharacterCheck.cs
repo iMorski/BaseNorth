@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Check : MonoBehaviour
+public class CharacterCheck : MonoBehaviour
 {
     [NonSerialized] public List<GameObject> Enemy = new List<GameObject>();
     

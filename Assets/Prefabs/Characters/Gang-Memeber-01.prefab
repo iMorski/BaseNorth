@@ -639,8 +639,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1612952942726601801}
-  - component: {fileID: 1612952942726601802}
-  - component: {fileID: 5567207615136664856}
+  - component: {fileID: 2064741446510497524}
+  - component: {fileID: 682111301280262220}
   m_Layer: 0
   m_Name: Gang-Memeber-01
   m_TagString: Untagged
@@ -665,7 +665,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1612952942726601802
+--- !u!114 &2064741446510497524
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -684,7 +684,7 @@ MonoBehaviour:
   RotationSmoothValue: 0.75
   BloodFX: {fileID: 1362418652685942, guid: c1dbd0ccf88468c449907ae6a15149a8, type: 3}
   BloodFXSpawnPosition: {fileID: 375392587}
---- !u!136 &5567207615136664856
+--- !u!136 &682111301280262220
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4304,7 +4304,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7812166770672370210}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class Choose : MonoBehaviour
+public class CharacterChoice : MonoBehaviour
 {
     [SerializeField] private GameObject Character;
     [SerializeField] private RectTransform Position;
@@ -19,8 +19,8 @@ public class Choose : MonoBehaviour
     {
         FB.ConnectionStepChange += OnConnectionStepChange;
         
-        Select.Сlick += OnSelectClick;
-        Move.Сlick += OnMoveClick;
+        CharacterSelection.Сlick += OnSelectClick;
+        CharacterMovement.Сlick += OnMoveClick;
     }
     
     private void OnConnectionStepChange()

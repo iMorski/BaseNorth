@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class Move : MonoBehaviour
+public class CharacterMovement : MonoBehaviour
 {
     [SerializeField] private Button Button;
     [SerializeField] private Image Plane;
@@ -24,10 +24,9 @@ public class Move : MonoBehaviour
         GameController.Spawn += OnSpawn;
         GameController.Move += OnMove;
 
-        CharacterController.Die += OnDie;
-        
-        Choose.Сlick += OnChooseClick;
-        Select.Сlick += OnSelectClick;
+        CharacterController.Die += OnDeath;
+        CharacterChoice.Сlick += OnChooseClick;
+        CharacterSelection.Сlick += OnSelectClick;
     }
 
     private void OnSpawn(Vector3 SpawnPosition)
@@ -63,11 +62,11 @@ public class Move : MonoBehaviour
         }
     }
 
-    private void OnDie(Vector3 DiePosition)
+    private void OnDeath(GameObject DeathCharacter, Vector3 DeathPosition)
     {
         Vector3 Position = gameObject.transform.position;
         
-        if (!(Position != DiePosition))
+        if (!(Position != DeathPosition))
         {
             if (IsOn)
             {
@@ -131,9 +130,9 @@ public class Move : MonoBehaviour
         
         int Count = 0;
 
-        foreach (string Name in GameController.CharacterInGameByName)
+        foreach (string Name in FB.MyData.Keys)
         {
-            if (Name.Contains($"Ally-Character-{Character.name}"))
+            if (Name.Contains($"Character-{Character.name}"))
             {
                 Count++;
             }

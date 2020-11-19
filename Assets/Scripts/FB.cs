@@ -360,17 +360,16 @@ public class FB : MonoBehaviour
 
     public static void SetValue()
     {
-        foreach (KeyValuePair<string, string> Data in MyData)
+        if (MyName != "")
         {
-            BaseReference.Child("ActivePlayer").Child(MyName).Child(Data.Key).SetValueAsync(Data.Value);
-
-            if (!(ConnectionStep != 3.1))
+            foreach (KeyValuePair<string, string> Data in MyData)
             {
-                BaseReference.Child("Lobby").Child(MyName).Child(Data.Key).SetValueAsync(Data.Value);
-            }
-            else if (MyRoom != "")
-            {
-                BaseReference.Child("ActiveRoom").Child(MyRoom).Child(MyName).Child(Data.Key).SetValueAsync(Data.Value);
+                BaseReference.Child("ActivePlayer").Child(MyName).Child(Data.Key).SetValueAsync(Data.Value);
+            
+                if (MyRoom != "")
+                {
+                    BaseReference.Child("ActiveRoom").Child(MyRoom).Child(MyName).Child(Data.Key).SetValueAsync(Data.Value);
+                }
             }
         }
     }

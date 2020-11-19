@@ -25,16 +25,16 @@ public class CharacterController : MonoBehaviour
         Check = GetComponentInChildren<Check>();
         Animator = GetComponentInChildren<Animator>();
         Select = GetComponentInChildren<Select>();
-        
-        if (gameObject.name.Contains("Enemy"))
-        {
-            StartCoroutine(Search());
-        }
     }
 
     private void Start()
     {
         GameController.Attack += OnAttack;
+        
+        if (gameObject.name.Contains("Enemy"))
+        {
+            StartCoroutine(Search());
+        }
     }
 
     private void OnAttack(GameObject Character, int InDataHealth)
@@ -45,7 +45,8 @@ public class CharacterController : MonoBehaviour
             
             Instantiate(BloodFX, BloodFXSpawnPosition);
         }
-        else if (Check.Enemy.Contains(Character))
+        
+        if (Check.Enemy.Contains(Character))
         {
             Vector3 CurrentPosition = transform.position;
             Vector3 NextPosition = Character.transform.position;
@@ -62,19 +63,18 @@ public class CharacterController : MonoBehaviour
         
         FB.MyData[Name] = FB.MyData[Name].Replace(Health.ToString(), (Health - IncomingDamage).ToString());
         FB.SetValue();
-        
-        /*
-        
-        Instantiate(BloodFX, BloodFXSpawnPosition);
-        
-        if (!(Health > 0.0f))
+
+        if (!(Health - IncomingDamage > 0.0f))
         {
-            Collider.enabled = false;
+            GetComponent<Collider>().enabled = false;
+            
+            Debug.Log("Disabling my own collider.");
             
             StopAllCoroutines();
 
-            CharacterAnimator.CrossFade("Death", 0.25f);
-            CharacterSelect.UiDisable();
+            Animator.CrossFade("Death", 0.25f);
+            
+            Select.UiDisable();
 
             GameController.CharacterInGame.Remove(gameObject);
             GameController.CharacterInGameByName.Remove(gameObject.name);
@@ -83,7 +83,7 @@ public class CharacterController : MonoBehaviour
             FB.SetValue();
         }
         
-        */
+        Debug.Log("Health: " + Health);
     }
 
     public void SetPosition(Vector3 NextPosition)
@@ -154,7 +154,12 @@ public class CharacterController : MonoBehaviour
         
         while (Check.Enemy.Contains(Enemy))
         {
-            if (Controller.Health > 0.0f)
+            string Name = Enemy.name.Replace("Ally-", "");
+            string Data = FB.MyData[Name];
+
+            int DataHealth = int.Parse(Data.Substring(0, Data.IndexOf(" ")));
+            
+            if (DataHealth > 0.0f)
             {
                 Controller.Reduce(Damage);
             }

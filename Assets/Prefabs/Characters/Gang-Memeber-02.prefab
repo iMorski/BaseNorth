@@ -678,8 +678,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Health: 100
-  Damage: 10
-  Speed: 0.75
+  Damage: 25
+  Speed: 0.5
   PositionSmoothValue: 0.5
   RotationSmoothValue: 0.75
   BloodFX: {fileID: 1362418652685942, guid: c1dbd0ccf88468c449907ae6a15149a8, type: 3}

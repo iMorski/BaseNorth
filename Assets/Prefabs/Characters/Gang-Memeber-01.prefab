@@ -4288,9 +4288,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b15d870fc6d1a024fb2d28e53a6801a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Character: {fileID: 1612952942726601800}
   Health: 100
-  Damage: 25
+  Damage: 10
   Speed: 0.5
   PositionSmoothValue: 0.5
   RotationSmoothValue: 0.75
@@ -4384,7 +4383,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 727a3c2e24e7f5a49b70842712983a45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Character: {fileID: 4851637116065785392}
   Enemy: []
 --- !u!1001 &850348588812250672
 PrefabInstance:

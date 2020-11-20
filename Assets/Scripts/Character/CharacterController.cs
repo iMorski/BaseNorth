@@ -29,8 +29,6 @@ public class CharacterController : MonoBehaviour
         CharacterCheck = GetComponentInChildren<CharacterCheck>();
         CharacterAnimator = GetComponentInChildren<Animator>();
         CharacterUi = GetComponentInChildren<UiCharacter>();
-        
-        OnCellPosition = transform.position;
     }
 
     private void Start()
@@ -41,6 +39,8 @@ public class CharacterController : MonoBehaviour
         {
             StartCoroutine(Search());
         }
+        
+        OnCellPosition = transform.position;
     }
 
     private void OnHit(GameObject HitCharacter, int HitHealth)
@@ -76,8 +76,11 @@ public class CharacterController : MonoBehaviour
             StopAllCoroutines();
             
             CharacterCheck.Enemy.Remove(DeathCharacter);
-            
-            StartCoroutine(Search());
+
+            if (transform.parent.name.Contains("Enemy"))
+            {
+                StartCoroutine(Search());
+            }
         }
     }
     
@@ -136,7 +139,7 @@ public class CharacterController : MonoBehaviour
 
     private IEnumerator RotateOnAttack(GameObject Enemy)
     {
-        while (true)
+        while (Enemy != null && CharacterCheck.Enemy.Contains(Enemy))
         {
             Vector3 CurrentPosition = transform.position;
             Vector3 NextPosition = Enemy.transform.position;
@@ -165,7 +168,7 @@ public class CharacterController : MonoBehaviour
 
     private IEnumerator Attack(GameObject Enemy)
     {
-        while (true)
+        while (Enemy != null && CharacterCheck.Enemy.Contains(Enemy))
         {
             int CharacterHealth()
             {
@@ -186,6 +189,11 @@ public class CharacterController : MonoBehaviour
                     yield break;
                 }
             }
+        }
+
+        if (transform.parent.name.Contains("Enemy"))
+        {
+            StartCoroutine(Search());
         }
     }
 

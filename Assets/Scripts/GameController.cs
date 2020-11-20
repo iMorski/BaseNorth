@@ -130,29 +130,35 @@ public class GameController : MonoBehaviour
 
     private void MoveCharacter(int i, string Position)
     {
-        GameObject Character = CharacterInGame[i].transform.GetChild(0).gameObject;
-        
-        Vector3 CurrentPosition = Character.transform.position;
-        Vector3 NextPosition = CalculatePosition(Position);
-                            
-        if (CurrentPosition != NextPosition)
+        if (CharacterInGame[i].transform.Find("Character") != null)
         {
-            Character.GetComponent<CharacterController>().SetPosition(NextPosition);
+            GameObject Character = CharacterInGame[i].transform.GetChild(0).gameObject;
+        
+            Vector3 CurrentPosition = Character.transform.position;
+            Vector3 NextPosition = CalculatePosition(Position);
+                            
+            if (CurrentPosition != NextPosition)
+            {
+                Character.GetComponent<CharacterController>().SetPosition(NextPosition);
 
-            Move(CurrentPosition, NextPosition);
+                Move(CurrentPosition, NextPosition);
+            }
         }
     }
 
     private void HitCharacter(int i, string Health)
     {
-        GameObject Character = CharacterInGame[i].transform.GetChild(0).gameObject;
-        
-        int CharacterHealth = Character.GetComponent<CharacterController>().Health;
-        int DataHealth = int.Parse(Health.Substring(0, Health.IndexOf(" ")));
-
-        if (CharacterHealth != DataHealth)
+        if (CharacterInGame[i].transform.Find("Character") != null)
         {
-            Hit(Character, DataHealth);
+            GameObject Character = CharacterInGame[i].transform.GetChild(0).gameObject;
+        
+            int CharacterHealth = Character.GetComponent<CharacterController>().Health;
+            int DataHealth = int.Parse(Health.Substring(0, Health.IndexOf(" ")));
+
+            if (CharacterHealth != DataHealth)
+            {
+                Hit(Character, DataHealth);
+            }
         }
     }
 

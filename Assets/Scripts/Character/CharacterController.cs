@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class CharacterController : MonoBehaviour
 {
-    public GameObject Character;
-    
     public int Health;
     public int Damage;
     
@@ -39,7 +37,7 @@ public class CharacterController : MonoBehaviour
     {
         GameController.Hit += OnHit;
 
-        if (Character.name.Contains("Enemy"))
+        if (transform.parent.name.Contains("Enemy"))
         {
             StartCoroutine(Search());
         }
@@ -47,7 +45,7 @@ public class CharacterController : MonoBehaviour
 
     private void OnHit(GameObject HitCharacter, int HitHealth)
     {
-        Character = gameObject;
+        GameObject Character = gameObject;
 
         if (!(Character != HitCharacter))
         {
@@ -59,6 +57,8 @@ public class CharacterController : MonoBehaviour
             {
                 Die -= OnDeath;
                 Die(Character, OnCellPosition);
+                
+                Destroy(Character);
             }
         }
         else if (CharacterCheck.Enemy.Contains(HitCharacter))
@@ -66,11 +66,6 @@ public class CharacterController : MonoBehaviour
             StartCoroutine(RotateOnAttack(HitCharacter));
             
             CharacterAnimator.CrossFade("Gun-1H-Fire", 0.25f);
-            
-            if (!(HitHealth > 0.0f))
-            {
-                StopAllCoroutines();
-            }
         }
     }
 
@@ -78,6 +73,8 @@ public class CharacterController : MonoBehaviour
     {
         if (CharacterCheck.Enemy.Contains(DeathCharacter))
         {
+            StopAllCoroutines();
+            
             CharacterCheck.Enemy.Remove(DeathCharacter);
             
             StartCoroutine(Search());
@@ -99,7 +96,7 @@ public class CharacterController : MonoBehaviour
     
     public void Hit(int IncomingDamage)
     {
-        string Name = Character.name.Replace("Ally-", "");
+        string Name = transform.parent.name.Replace("Ally-", "");
 
         FB.MyData[Name] = FB.MyData[Name].Replace(Health.ToString(), (Health - IncomingDamage).ToString());
         FB.SetValue();
@@ -119,7 +116,7 @@ public class CharacterController : MonoBehaviour
         CharacterAnimator.CrossFade("Gun-1H-Wait", 0.25f);
         CharacterUi.Button.enabled = true;
 
-        if (Character.name.Contains("Enemy"))
+        if (transform.parent.name.Contains("Enemy"))
         {
             StartCoroutine(Search());
         }
@@ -139,14 +136,12 @@ public class CharacterController : MonoBehaviour
 
     private IEnumerator RotateOnAttack(GameObject Enemy)
     {
-        while (Enemy != null)
+        while (true)
         {
             Vector3 CurrentPosition = transform.position;
             Vector3 NextPosition = Enemy.transform.position;
-
-            Quaternion Rotation = Quaternion.LookRotation(NextPosition - CurrentPosition);
             
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, Rotation, RotationSmoothValue * 1000 * Time.deltaTime);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(NextPosition - CurrentPosition), RotationSmoothValue * 1000 * Time.deltaTime);
             
             yield return new WaitForEndOfFrame();
         }
@@ -154,16 +149,12 @@ public class CharacterController : MonoBehaviour
     
     private IEnumerator Search()
     {
-        GameObject Enemy = new GameObject();
-        
-        while (Enemy != null)
+        while (true)
         {
             if (CharacterCheck.Enemy.Any())
             {
-                Enemy = CharacterCheck.Enemy[0];
-                
-                StartCoroutine(Attack(Enemy));
-                StartCoroutine(RotateOnAttack(Enemy));
+                StartCoroutine(Attack(CharacterCheck.Enemy[0]));
+                StartCoroutine(RotateOnAttack(CharacterCheck.Enemy[0]));
                 
                 yield break;
             }
@@ -174,16 +165,17 @@ public class CharacterController : MonoBehaviour
 
     private IEnumerator Attack(GameObject Enemy)
     {
-        while (Enemy != null && CharacterCheck.Enemy.Contains(Enemy))
+        while (true)
         {
             int CharacterHealth()
             {
-                string Parent = Enemy.GetComponent<CharacterController>().Character.name;
-                string Name = Parent.Replace("Ally-", "");
+                string Name = Enemy.transform.parent.name.Replace("Ally-", "");
                 string Data = FB.MyData[Name];
 
                 return int.Parse(Data.Substring(0, Data.IndexOf(" ")));
             }
+
+            yield return new WaitForSeconds(Speed);
 
             if (CharacterHealth() > 0.0f)
             {
@@ -194,8 +186,6 @@ public class CharacterController : MonoBehaviour
                     yield break;
                 }
             }
-
-            yield return new WaitForSeconds(Speed);
         }
     }
 

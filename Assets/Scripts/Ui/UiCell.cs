@@ -32,9 +32,7 @@ public class UiCell : MonoBehaviour
 
     private void OnSpawn(Vector3 SpawnPosition)
     {
-        Vector3 Position = gameObject.transform.position;
-        
-        if (!(Position != SpawnPosition))
+        if (!(transform.position != SpawnPosition))
         {
             Disable();
             
@@ -44,9 +42,7 @@ public class UiCell : MonoBehaviour
     
     private void OnMove(Vector3 MoveCurrentPosition, Vector3 MoveNextPosition)
     {
-        Vector3 Position = gameObject.transform.position;
-        
-        if (!(Position != MoveCurrentPosition))
+        if (!(transform.position != MoveCurrentPosition))
         {
             if (IsOn)
             {
@@ -55,7 +51,7 @@ public class UiCell : MonoBehaviour
             
             IsOccupied = false;
         }
-        else if (!(Position != MoveNextPosition))
+        else if (!(transform.position != MoveNextPosition))
         {
             Disable();
             
@@ -65,9 +61,7 @@ public class UiCell : MonoBehaviour
 
     private void OnDeath(GameObject DeathCharacter, Vector3 DeathPosition)
     {
-        Vector3 Position = gameObject.transform.position;
-        
-        if (!(Position != DeathPosition))
+        if (!(transform.position != DeathPosition))
         {
             if (IsOn)
             {

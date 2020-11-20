@@ -1,16 +1,17 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class UiCharacter : MonoBehaviour
 {
-    [SerializeField] private GameObject Character;
-    
     public Button Button;
     public Image Plane;
     public Image Pointer;
     
     public delegate void OnСlick(Button Button, GameObject Character);
     public static event OnСlick Сlick;
+
+    private GameObject Parent;
     
     private void Awake()
     {
@@ -20,8 +21,10 @@ public class UiCharacter : MonoBehaviour
     private void Start()
     {
         transform.rotation = CameraRotation.RotationQuaternion;
+
+        Parent = transform.parent.parent.gameObject;
         
-        if (Character.name.Contains("Ally"))
+        if (Parent.name.Contains("Ally"))
         {
             Button.enabled = true;
             Plane.enabled = true;
@@ -52,6 +55,12 @@ public class UiCharacter : MonoBehaviour
     {
         Pointer.enabled = true;
         
-        Сlick(Button, Character);
+        Сlick(Button, Parent);
+    }
+
+    private void OnDestroy()
+    {
+        UiCell.Сlick -= OnCellClick;
+        UiCharacter.Сlick -= OnCharacterClick;
     }
 }

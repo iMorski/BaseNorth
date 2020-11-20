@@ -112,6 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb17b52f44f7114408ae3461130afb27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Character: {fileID: 0}
   Button: {fileID: 850348589442001234}
   Plane: {fileID: 850348589442001235}
   Pointer: {fileID: 850348589556565922}
@@ -234,7 +235,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 6097749268659242239}
         m_MethodName: OnClick
         m_Mode: 1
         m_Arguments:

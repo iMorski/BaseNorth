@@ -1,26 +1,26 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class CharacterChoice : MonoBehaviour
+public class UiDeck : MonoBehaviour
 {
     [SerializeField] private GameObject Character;
     [SerializeField] private RectTransform Position;
     [SerializeField] private Button Button;
     
-    public delegate void OnСlick(GameObject Button, GameObject Character);
+    public delegate void OnСlick(Button Button, GameObject Character);
     public static event OnСlick Сlick;
 
     private void Awake()
     {
-        Сlick += OnChooseСlick;
+        Сlick += OnDeckСlick;
     }
 
     private void Start()
     {
         FB.ConnectionStepChange += OnConnectionStepChange;
         
-        CharacterSelection.Сlick += OnSelectClick;
-        CharacterMovement.Сlick += OnMoveClick;
+        UiCharacter.Сlick += OnCharacterClick;
+        UiCell.Сlick += OnCellClick;
     }
     
     private void OnConnectionStepChange()
@@ -31,19 +31,19 @@ public class CharacterChoice : MonoBehaviour
         }
     }
     
-    private void OnSelectClick(GameObject SelectButton, GameObject SelectCharacter)
+    private void OnCharacterClick(Button UiButton, GameObject UiCharacter)
     {
         Enable();
     }
 
-    private void OnMoveClick()
+    private void OnCellClick()
     {
         Enable();
     }
 
-    private void OnChooseСlick(GameObject ChooseButton, GameObject ChooseCharacter)
+    private void OnDeckСlick(Button UiButton, GameObject UiCharacter)
     {
-        if (gameObject != ChooseButton)
+        if (Button != UiButton)
         {
             Enable();
         }
@@ -52,8 +52,8 @@ public class CharacterChoice : MonoBehaviour
     public void OnClick()
     {
         Disable();
-
-        Сlick(gameObject, Character);
+        
+        Сlick(Button, Character);
     }
     
     private void Enable()

@@ -115,43 +115,44 @@ public class GameController : MonoBehaviour
 
     private void SpawnCharacter(string Name, string Position, string Faction)
     {
-        GameObject Character = Instantiate(GetCharacterByName(Name), CalculatePosition(Position), Quaternion.identity);
-
+        GameObject Character = Instantiate(GetCharacterByName(Name), new Vector3(0.0f, 0.0f, 0.0f), Quaternion.identity);
+        
         Character.name = $"{Faction}-{Name}";
                         
         CharacterInGame.Add(Character);
         CharacterInGameByName.Add(Character.name);
-                        
+
+        Character = Character.transform.GetChild(0).gameObject;
+        Character.transform.position = CalculatePosition(Position);
+
         Spawn(Character.transform.position);
     }
 
     private void MoveCharacter(int i, string Position)
     {
-        if (CharacterInGame[i] != null)
-        {
-            Vector3 CurrentPosition = CharacterInGame[i].transform.position;
-            Vector3 NextPosition = CalculatePosition(Position);
+        GameObject Character = CharacterInGame[i].transform.GetChild(0).gameObject;
+        
+        Vector3 CurrentPosition = Character.transform.position;
+        Vector3 NextPosition = CalculatePosition(Position);
                             
-            if (CurrentPosition != NextPosition)
-            {
-                CharacterInGame[i].GetComponent<CharacterController>().SetPosition(NextPosition);
+        if (CurrentPosition != NextPosition)
+        {
+            Character.GetComponent<CharacterController>().SetPosition(NextPosition);
 
-                Move(CurrentPosition, NextPosition);
-            }
+            Move(CurrentPosition, NextPosition);
         }
     }
 
     private void HitCharacter(int i, string Health)
     {
-        if (CharacterInGame[i] != null)
-        {
-            int CharacterHealth = CharacterInGame[i].GetComponent<CharacterController>().Health;
-            int DataHealth = int.Parse(Health.Substring(0, Health.IndexOf(" ")));
+        GameObject Character = CharacterInGame[i].transform.GetChild(0).gameObject;
+        
+        int CharacterHealth = Character.GetComponent<CharacterController>().Health;
+        int DataHealth = int.Parse(Health.Substring(0, Health.IndexOf(" ")));
 
-            if (CharacterHealth != DataHealth)
-            {
-                Hit(CharacterInGame[i], DataHealth);
-            }
+        if (CharacterHealth != DataHealth)
+        {
+            Hit(Character, DataHealth);
         }
     }
 

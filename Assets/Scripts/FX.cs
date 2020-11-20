@@ -3,10 +3,10 @@
 public class FX : MonoBehaviour
 {
     [SerializeField] private GameObject GunFireFX;
-    [SerializeField] private Transform GunFireSpawnPosition;
+    [SerializeField] private Transform GunFireSpawn;
 
     public void Fire()
     {
-        Instantiate(GunFireFX, GunFireSpawnPosition);
+        Instantiate(GunFireFX, GunFireSpawn);
     }
 }

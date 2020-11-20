@@ -1,22 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class CharacterCheck : MonoBehaviour
 {
-    [NonSerialized] public List<GameObject> Enemy = new List<GameObject>();
+    [SerializeField] private GameObject Character;
     
-    private GameObject Character;
-
-    private void Awake()
-    {
-        Character = transform.parent.gameObject;
-    }
+    public List<GameObject> Enemy = new List<GameObject>();
 
     private void OnTriggerEnter(Collider other)
     {
-        if (Character.name.Contains("Ally") && other.gameObject.name.Contains("Enemy") ||
-            Character.name.Contains("Enemy") && other.gameObject.name.Contains("Ally"))
+        string Name = other.gameObject.GetComponent<CharacterController>().Character.name;
+        
+        if (Character.name.Contains("Ally") && Name.Contains("Enemy") ||
+            Character.name.Contains("Enemy") && Name.Contains("Ally"))
         {
             Enemy.Add(other.gameObject);
         }
@@ -24,8 +20,10 @@ public class CharacterCheck : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (Character.name.Contains("Ally") && other.gameObject.name.Contains("Enemy") ||
-            Character.name.Contains("Enemy") && other.gameObject.name.Contains("Ally"))
+        string Name = other.gameObject.GetComponent<CharacterController>().Character.name;
+        
+        if (Character.name.Contains("Ally") && Name.Contains("Enemy") ||
+            Character.name.Contains("Enemy") && Name.Contains("Ally"))
         {
             Enemy.Remove(other.gameObject);
         }

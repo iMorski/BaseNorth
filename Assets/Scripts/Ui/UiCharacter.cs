@@ -1,31 +1,33 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class CharacterSelection : MonoBehaviour
+public class UiCharacter : MonoBehaviour
 {
+    [SerializeField] private GameObject Character;
+    
     public Button Button;
     public Image Plane;
     public Image Pointer;
     
-    public delegate void OnСlick(GameObject Button, GameObject Character);
+    public delegate void OnСlick(Button Button, GameObject Character);
     public static event OnСlick Сlick;
     
     private void Awake()
     {
-        Сlick += OnSelectClick;
+        Сlick += OnCharacterClick;
     }
 
     private void Start()
     {
         transform.rotation = CameraRotation.RotationQuaternion;
         
-        if (gameObject.transform.parent.name.Contains("Ally"))
+        if (Character.name.Contains("Ally"))
         {
             Button.enabled = true;
             Plane.enabled = true;
         }
 
-        CharacterMovement.Сlick += OnMoveClick;
+        UiCell.Сlick += OnCellClick;
     }
 
     private void Update()
@@ -33,14 +35,14 @@ public class CharacterSelection : MonoBehaviour
         transform.rotation = CameraRotation.RotationQuaternion;
     }
 
-    private void OnMoveClick()
+    private void OnCellClick()
     {
         Pointer.enabled = false;
     }
 
-    private void OnSelectClick(GameObject SelectButton, GameObject SelectCharacter)
+    private void OnCharacterClick(Button UiButton, GameObject UiCharacter)
     {
-        if (gameObject != SelectButton)
+        if (Button != UiButton)
         {
             Pointer.enabled = false;
         }
@@ -50,12 +52,6 @@ public class CharacterSelection : MonoBehaviour
     {
         Pointer.enabled = true;
         
-        Сlick(gameObject, transform.parent.gameObject);
-    }
-    
-    private void OnDestroy()
-    {
-        CharacterMovement.Сlick -= OnMoveClick;
-        CharacterSelection.Сlick -= OnSelectClick;
+        Сlick(Button, Character);
     }
 }

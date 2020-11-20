@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class CharacterMovement : MonoBehaviour
+public class UiCell : MonoBehaviour
 {
     [SerializeField] private Button Button;
     [SerializeField] private Image Plane;
@@ -9,10 +9,10 @@ public class CharacterMovement : MonoBehaviour
     public delegate void OnСlick();
     public static event OnСlick Сlick;
 
-    private bool IsOn;
-    private bool IsOccupied;
-
     private GameObject Character;
+
+    private bool IsOccupied;
+    private bool IsOn;
 
     private void Awake()
     {
@@ -23,10 +23,11 @@ public class CharacterMovement : MonoBehaviour
     {
         GameController.Spawn += OnSpawn;
         GameController.Move += OnMove;
+        
+        UiDeck.Сlick += OnDeckClick;
+        UiCharacter.Сlick += OnCharacterClick;
 
         CharacterController.Die += OnDeath;
-        CharacterChoice.Сlick += OnChooseClick;
-        CharacterSelection.Сlick += OnSelectClick;
     }
 
     private void OnSpawn(Vector3 SpawnPosition)
@@ -77,25 +78,25 @@ public class CharacterMovement : MonoBehaviour
         }
     }
     
-    private void OnChooseClick(GameObject ChooseButton, GameObject ChooseCharacter)
+    private void OnDeckClick(Button UiButton, GameObject UiCharacter)
     {
         if (!IsOccupied)
         {
             Enable();
 
-            Character = ChooseCharacter;
+            Character = UiCharacter;
         }
 
         IsOn = true;
     }
     
-    private void OnSelectClick(GameObject SelectButton, GameObject SelectCharacter)
+    private void OnCharacterClick(Button UiButton, GameObject UiCharacter)
     {
         if (!IsOccupied)
         {
             Enable();
 
-            Character = SelectCharacter;
+            Character = UiCharacter;
         }
         
         IsOn = true;
@@ -113,12 +114,17 @@ public class CharacterMovement : MonoBehaviour
         string Position01 = Mathf.Round(gameObject.transform.position.x).ToString();
         string Position02 = Mathf.Round(gameObject.transform.position.z).ToString();
 
-        int Health = Character.GetComponent<CharacterController>().Health;
+        int Health;
 
         foreach (string Name in GameController.CharacterInGameByName)
         {
             if (!(Character.name != Name))
             {
+                string CharacterName = Character.name.Replace("Ally-", "");
+                string CharacterData = FB.MyData[CharacterName];
+
+                Health = int.Parse(CharacterData.Substring(0, CharacterData.IndexOf(" ")));
+
                 FB.MyData[Character.name.Replace("Ally-", "")] = $"{Health} ; {Position01} : {Position02}";
                 FB.SetValue();
                 
@@ -127,7 +133,7 @@ public class CharacterMovement : MonoBehaviour
                 return;
             }
         }
-        
+
         int Count = 0;
 
         foreach (string Name in FB.MyData.Keys)
@@ -137,6 +143,8 @@ public class CharacterMovement : MonoBehaviour
                 Count++;
             }
         }
+        
+        Health = Character.GetComponentInChildren<CharacterController>().Health;
         
         FB.MyData[$"Character-{Character.name}-0{Count + 1}"] = $"{Health} ; {Position01} : {Position02}";
         FB.SetValue();

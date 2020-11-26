@@ -128,6 +128,8 @@ public class UiCell : MonoBehaviour
             }
         }
 
+        StartCoroutine(UiBar.Decrease(UiBar.Slider.value - Character.GetComponentInChildren<CharacterController>().Cost));
+
         int Count = 0;
 
         foreach (string Name in FB.MyData.Keys)

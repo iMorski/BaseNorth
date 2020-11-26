@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GameController : MonoBehaviour
@@ -13,9 +14,14 @@ public class GameController : MonoBehaviour
     
     public delegate void OnAttack(GameObject Character, int Health);
     public static event OnAttack Hit;
+    
+    public delegate void OnCarMove(Vector3 CurrentPosition, Vector3 TargetPosition);
+    public static event OnCarMove CarMove;
 
     public static List<GameObject> CharacterInGame = new List<GameObject>();
     public static List<string> CharacterInGameByName = new List<string>();
+
+    public static int MyPosition;
     
     private List<string> CharacterContainerByName = new List<string>();
 
@@ -40,6 +46,21 @@ public class GameController : MonoBehaviour
         if (!(FB.ConnectionStep != 1.0))
         {
             FB.Connect();
+        }
+        
+        if (!(FB.ConnectionStep != 5.0))
+        {
+            if (!(FB.RoomData.Values.First() != FB.MyName))
+            {
+                MyPosition = 1;
+                
+                FB.MyData.Add("Car", "0 : 0");
+                FB.SetValue();
+            }
+            else
+            {
+                MyPosition = 2;
+            }
         }
     }
 
@@ -109,6 +130,18 @@ public class GameController : MonoBehaviour
 
         Position.x = int.Parse(Raw.Substring(StatSeparator + 1, (PositionSeparator - 1) - (StatSeparator + 1)));
         Position.z = int.Parse(Raw.Substring(PositionSeparator + 1, Raw.Length - (PositionSeparator + 1)));
+
+        return Position;
+    }
+
+    private Vector3 CalculateCarPosition(string Raw)
+    {
+        Vector3 Position = new Vector3();
+
+        int Separator = Raw.IndexOf(":");
+
+        Position.x = int.Parse(Raw.Substring(0, Separator - 1));
+        Position.z = int.Parse(Raw.Substring(Separator + 1, Raw.Length - (Separator + 1)));
 
         return Position;
     }

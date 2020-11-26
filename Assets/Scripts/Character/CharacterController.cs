@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class CharacterController : MonoBehaviour
 {
+    [SerializeField] private GameObject Team01;
+    [SerializeField] private GameObject Team02;
+    
+    public Type Weapon;
+
+    [Range(0.0f, 1000.0f)] public int Cost;
+    
     public int Health;
     public int Damage;
     
@@ -21,6 +28,13 @@ public class CharacterController : MonoBehaviour
     private UiCharacter CharacterUi;
     
     private Vector3 OnCellPosition;
+    
+    public enum Type
+    {
+        Melee,
+        Pistol,
+        Rifle
+    }
 
     private void Awake()
     {
@@ -29,6 +43,23 @@ public class CharacterController : MonoBehaviour
         CharacterCheck = GetComponentInChildren<CharacterCheck>();
         CharacterAnimator = GetComponentInChildren<Animator>();
         CharacterUi = GetComponentInChildren<UiCharacter>();
+
+        switch (GameController.MyPosition)
+        {
+            case 1:
+                
+                Team01.SetActive(true);
+
+                break;
+            
+            case 2:
+                
+                Team02.SetActive(true);
+
+                break;
+        }
+
+        Animation("Wait");
     }
 
     private void Start()
@@ -49,6 +80,8 @@ public class CharacterController : MonoBehaviour
 
         if (!(Character != HitCharacter))
         {
+            StartCoroutine(CharacterUi.HealthChange(Health, HitHealth));
+            
             Health = HitHealth;
             
             Instantiate(BloodFX, BloodFXSpawnPosition);
@@ -65,7 +98,7 @@ public class CharacterController : MonoBehaviour
         {
             StartCoroutine(RotateOnAttack(HitCharacter));
             
-            CharacterAnimator.CrossFade("Gun-1H-Fire", 0.25f);
+            Animation("Attack");
         }
     }
 
@@ -90,8 +123,13 @@ public class CharacterController : MonoBehaviour
         
         StopAllCoroutines();
 
-        CharacterAnimator.CrossFade("Gun-1H-Run", 0.25f);
-        CharacterUi.Button.enabled = false;
+        Animation("Run");
+
+        if (transform.parent.name.Contains("Ally"))
+        {
+            CharacterUi.Circle.enabled = false;
+            CharacterUi.Button.enabled = false;
+        }
 
         StartCoroutine(Move(NextPosition));
         StartCoroutine(RotateOnMove(CurrentPosition, NextPosition));
@@ -105,6 +143,108 @@ public class CharacterController : MonoBehaviour
         FB.SetValue();
     }
 
+    private void Animation(string Action)
+    {
+        switch (Action)
+        {
+            case "Wait":
+                
+                switch (Weapon)
+                {
+                    case Type.Melee:
+                
+                        CharacterAnimator.CrossFade("Melee-1H-Wait", 0.25f);
+
+                        break;
+            
+                    case Type.Pistol:
+                
+                        CharacterAnimator.CrossFade("Gun-1H-Wait", 0.25f);
+
+                        break;
+            
+                    case Type.Rifle:
+                
+                        CharacterAnimator.CrossFade("Gun-2H-Wait", 0.25f);
+
+                        break;
+                }
+
+                break;
+            
+            case "Run":
+                
+                switch (Weapon)
+                {
+                    case Type.Melee:
+                
+                        CharacterAnimator.CrossFade("Melee-1H-Run", 0.25f);
+
+                        break;
+            
+                    case Type.Pistol:
+                
+                        CharacterAnimator.CrossFade("Gun-1H-Run", 0.25f);
+
+                        break;
+            
+                    case Type.Rifle:
+                
+                        CharacterAnimator.CrossFade("Gun-2H-Run", 0.25f);
+
+                        break;
+                }
+
+                break;
+            
+            case "Attack":
+                
+                switch (Weapon)
+                {
+                    case Type.Melee:
+
+                        int Random = UnityEngine.Random.Range(0, 3);
+
+                        switch (Random)
+                        {
+                            case 0:
+                            
+                                CharacterAnimator.CrossFade("Melee-1H-Attack-01", 0.25f);
+
+                                break;
+                        
+                            case 1:
+                            
+                                CharacterAnimator.CrossFade("Melee-1H-Attack-02", 0.25f);
+
+                                break;
+                        
+                            case 2:
+                            
+                                CharacterAnimator.CrossFade("Melee-1H-Attack-03", 0.25f);
+
+                                break;
+                        }
+
+                        break;
+            
+                    case Type.Pistol:
+                
+                        CharacterAnimator.CrossFade("Gun-1H-Fire", 0.25f);
+
+                        break;
+            
+                    case Type.Rifle:
+                
+                        CharacterAnimator.CrossFade("Gun-2H-Fire", 0.25f);
+
+                        break;
+                }
+
+                break;
+        }
+    }
+
     private IEnumerator Move(Vector3 NextPosition)
     {
         OnCellPosition = NextPosition;
@@ -116,8 +256,13 @@ public class CharacterController : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
         
-        CharacterAnimator.CrossFade("Gun-1H-Wait", 0.25f);
-        CharacterUi.Button.enabled = true;
+        Animation("Wait");
+
+        if (transform.parent.name.Contains("Ally"))
+        {
+            CharacterUi.Circle.enabled = true;
+            CharacterUi.Button.enabled = true;
+        }
 
         if (transform.parent.name.Contains("Enemy"))
         {

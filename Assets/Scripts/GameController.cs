@@ -91,6 +91,22 @@ public class GameController : MonoBehaviour
                         SpawnCharacter(Data.Key, Data.Value, "Enemy");
                     }
                 }
+                
+                /*
+                
+                else if (Data.Key.Contains("Car"))
+                {
+                    Vector3 Position = CalculateCarPosition(Data.Value);
+
+                    if (!CarController.OnMove && Position != CarController.Position)
+                    {
+                        CarMove(CarController.Position, Position);
+                        
+                        CarController.MoveCar(Position);
+                    }
+                }
+                
+                */
             }
         }
     }
@@ -130,18 +146,6 @@ public class GameController : MonoBehaviour
 
         Position.x = int.Parse(Raw.Substring(StatSeparator + 1, (PositionSeparator - 1) - (StatSeparator + 1)));
         Position.z = int.Parse(Raw.Substring(PositionSeparator + 1, Raw.Length - (PositionSeparator + 1)));
-
-        return Position;
-    }
-
-    private Vector3 CalculateCarPosition(string Raw)
-    {
-        Vector3 Position = new Vector3();
-
-        int Separator = Raw.IndexOf(":");
-
-        Position.x = int.Parse(Raw.Substring(0, Separator - 1));
-        Position.z = int.Parse(Raw.Substring(Separator + 1, Raw.Length - (Separator + 1)));
 
         return Position;
     }
@@ -193,6 +197,18 @@ public class GameController : MonoBehaviour
                 Hit(Character, DataHealth);
             }
         }
+    }
+    
+    private Vector3 CalculateCarPosition(string Raw)
+    {
+        Vector3 Position = new Vector3();
+
+        int Separator = Raw.IndexOf(":");
+
+        Position.x = int.Parse(Raw.Substring(0, Separator - 1));
+        Position.z = int.Parse(Raw.Substring(Separator + 1, Raw.Length - (Separator + 1)));
+
+        return Position;
     }
 
     #if UNITY_EDITOR

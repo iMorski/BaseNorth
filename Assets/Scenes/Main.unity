@@ -7955,7 +7955,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!135 &1350863144499145196
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -7997,6 +7997,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3b1de413efc3d749b2996385a8884a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AllyRoute:
+  - {x: -3, y: 0, z: 0}
+  - {x: -3, y: 0, z: -3}
+  - {x: -3, y: 0, z: -6}
+  - {x: -3, y: 0, z: -9}
+  EnemyRoute:
+  - {x: 3, y: 0, z: 0}
+  - {x: 3, y: 0, z: 3}
+  - {x: 3, y: 0, z: 6}
+  - {x: 3, y: 0, z: 9}
 --- !u!1 &1350908797689663363
 GameObject:
   m_ObjectHideFlags: 0

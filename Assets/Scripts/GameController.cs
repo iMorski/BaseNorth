@@ -5,17 +5,21 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
     [SerializeField] private GameObject[] CharacterContainer;
+    [SerializeField] private CarController Car;
+    
+    public delegate void OnSetPosition();
+    public static event OnSetPosition SetPosition;
     
     public delegate void OnSpawn(Vector3 Position);
     public static event OnSpawn Spawn;
 
-    public delegate void OnMove(Vector3 CurrentPosition, Vector3 TargetPosition);
+    public delegate void OnMove(Vector3 CurrentPosition, Vector3 NextPosition);
     public static event OnMove Move;
     
     public delegate void OnAttack(GameObject Character, int Health);
     public static event OnAttack Hit;
     
-    public delegate void OnCarMove(Vector3 CurrentPosition, Vector3 TargetPosition);
+    public delegate void OnCarMove(Vector3 CurrentPosition, Vector3 NextPosition);
     public static event OnCarMove CarMove;
 
     public static List<GameObject> CharacterInGame = new List<GameObject>();
@@ -61,6 +65,8 @@ public class GameController : MonoBehaviour
             {
                 MyPosition = 2;
             }
+
+            SetPosition?.Invoke();
         }
     }
 
@@ -91,22 +97,17 @@ public class GameController : MonoBehaviour
                         SpawnCharacter(Data.Key, Data.Value, "Enemy");
                     }
                 }
-                
-                /*
-                
                 else if (Data.Key.Contains("Car"))
                 {
                     Vector3 Position = CalculateCarPosition(Data.Value);
 
-                    if (!CarController.OnMove && Position != CarController.Position)
+                    if (Position != Car.OnCellPosition)
                     {
-                        CarMove(CarController.Position, Position);
+                        CarMove(Car.OnCellPosition, Position);
                         
-                        CarController.MoveCar(Position);
+                        Car.SetPosition(Position);
                     }
                 }
-                
-                */
             }
         }
     }

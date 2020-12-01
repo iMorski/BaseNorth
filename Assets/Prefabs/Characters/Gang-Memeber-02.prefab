@@ -4254,7 +4254,7 @@ GameObject:
   - component: {fileID: 6300687708589349005}
   m_Layer: 0
   m_Name: Character
-  m_TagString: Untagged
+  m_TagString: Character
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4293,7 +4293,7 @@ MonoBehaviour:
   Weapon: 1
   Cost: 500
   Health: 100
-  Damage: 5
+  Damage: 15
   Speed: 1
   PositionSmoothValue: 0.5
   RotationSmoothValue: 0.75

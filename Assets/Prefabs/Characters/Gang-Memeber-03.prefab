@@ -4224,7 +4224,7 @@ GameObject:
   - component: {fileID: 6300687708589349005}
   m_Layer: 0
   m_Name: Character
-  m_TagString: Untagged
+  m_TagString: Character
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4263,7 +4263,7 @@ MonoBehaviour:
   Weapon: 2
   Cost: 750
   Health: 100
-  Damage: 10
+  Damage: 25
   Speed: 0.75
   PositionSmoothValue: 0.5
   RotationSmoothValue: 0.75
@@ -4395,6 +4395,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6132498497924990476}
     m_Modifications:
+    - target: {fileID: 700092737467072112, guid: 52d6a52a247c8854388b20c8ea9c8ea3,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 700092737467072112, guid: 52d6a52a247c8854388b20c8ea9c8ea3,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 850348589297433307, guid: 52d6a52a247c8854388b20c8ea9c8ea3,
         type: 3}
       propertyPath: m_Name

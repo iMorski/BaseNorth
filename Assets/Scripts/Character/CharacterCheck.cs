@@ -7,8 +7,8 @@ public class CharacterCheck : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (transform.parent.GetSiblingIndex() != 0 && (transform.parent.parent.name.Contains("Ally") && other.transform.parent.name.Contains("Enemy") ||
-            transform.parent.parent.name.Contains("Enemy") && other.transform.parent.name.Contains("Ally")))
+        if (other.CompareTag("Character") && (transform.parent.parent.name.Contains("Ally") && other.transform.parent.name.Contains("Enemy") ||
+                                                        transform.parent.parent.name.Contains("Enemy") && other.transform.parent.name.Contains("Ally")))
         {
             Enemy.Add(other.gameObject);
         }
@@ -16,8 +16,8 @@ public class CharacterCheck : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (transform.parent.GetSiblingIndex() != 0 && (transform.parent.parent.name.Contains("Ally") && other.transform.parent.name.Contains("Enemy") ||
-            transform.parent.parent.name.Contains("Enemy") && other.transform.parent.name.Contains("Ally")))
+        if (other.CompareTag("Character") && (transform.parent.parent.name.Contains("Ally") && other.transform.parent.name.Contains("Enemy") ||
+                                              transform.parent.parent.name.Contains("Enemy") && other.transform.parent.name.Contains("Ally")))
         {
             Enemy.Remove(other.gameObject);
         }

@@ -17,12 +17,20 @@ public class UiCell : MonoBehaviour
     private void Awake()
     {
         Сlick += OnMoveClick;
+
+        if (!(transform.position != new Vector3(0.0f, 0.0f, 0.0f)))
+        {
+            Disable();
+            
+            IsOccupied = true;
+        }
     }
 
     private void Start()
     {
         GameController.Spawn += OnSpawn;
         GameController.Move += OnMove;
+        GameController.CarMove += OnCarMove;
         
         UiDeck.Сlick += OnDeckClick;
         UiCharacter.Сlick += OnCharacterClick;
@@ -59,6 +67,25 @@ public class UiCell : MonoBehaviour
         }
     }
 
+    private void OnCarMove(Vector3 MoveCurrentPosition, Vector3 MoveNextPosition)
+    {
+        if (!(transform.position != MoveCurrentPosition))
+        {
+            if (IsOn)
+            {
+                Enable();
+            }
+            
+            IsOccupied = false;
+        }
+        else if (!(transform.position != MoveNextPosition))
+        {
+            Disable();
+            
+            IsOccupied = true;
+        }
+    }
+
     private void OnDeath(GameObject DeathCharacter, Vector3 DeathPosition)
     {
         if (!(transform.position != DeathPosition))
@@ -76,11 +103,32 @@ public class UiCell : MonoBehaviour
     {
         if (!IsOccupied)
         {
-            Enable();
+            Debug.Log(transform.position.z);
+            
+            switch (GameController.MyPosition)
+            {
+                case 1:
 
+                    if (!(transform.position.z != -9.0f) || transform.position.z < -9.0f)
+                    {
+                        Enable();
+                    }
+
+                    break;
+            
+                case 2:
+                
+                    if (!(transform.position.z != 9.0f) || transform.position.z > 9.0f)
+                    {
+                        Enable();
+                    }
+
+                    break;
+            }
+            
             Character = UiCharacter;
         }
-
+        
         IsOn = true;
     }
     

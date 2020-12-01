@@ -88,6 +88,8 @@ public class CharacterController : MonoBehaviour
 
             if (!(Health > 0.0f))
             {
+                UiBar.Slider.value = UiBar.Slider.value + Cost / 2;
+                
                 Die -= OnDeath;
                 Die(Character, OnCellPosition);
                 

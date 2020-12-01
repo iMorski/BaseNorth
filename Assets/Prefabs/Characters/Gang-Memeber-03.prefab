@@ -4263,8 +4263,8 @@ MonoBehaviour:
   Weapon: 2
   Cost: 750
   Health: 100
-  Damage: 25
-  Speed: 0.75
+  Damage: 10
+  Speed: 0.5
   PositionSmoothValue: 0.5
   RotationSmoothValue: 0.75
   BloodFX: {fileID: 1362418652685942, guid: c1dbd0ccf88468c449907ae6a15149a8, type: 3}
@@ -4279,8 +4279,8 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
+  m_Radius: 0.75
+  m_Height: 2.5
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &5909343495751187176
@@ -4373,7 +4373,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 7.25
+  m_Radius: 6
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &5919485876641487885
 MonoBehaviour:
@@ -4524,12 +4524,12 @@ PrefabInstance:
     - target: {fileID: 5966664932446522617, guid: 52d6a52a247c8854388b20c8ea9c8ea3,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 14.5
+      value: 12.5
       objectReference: {fileID: 0}
     - target: {fileID: 5966664932446522617, guid: 52d6a52a247c8854388b20c8ea9c8ea3,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 14.5
+      value: 12.5
       objectReference: {fileID: 0}
     - target: {fileID: 6097749268659242239, guid: 52d6a52a247c8854388b20c8ea9c8ea3,
         type: 3}

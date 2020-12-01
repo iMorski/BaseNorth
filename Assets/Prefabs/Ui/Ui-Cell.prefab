@@ -333,5 +333,5 @@ MonoBehaviour:
   PlaneBorder: {fileID: 4119428636885402491}
   BorderColorAlly: {r: 0, g: 1, b: 0, a: 0.29411766}
   BorderColorEnemy: {r: 1, g: 0, b: 0, a: 0.29411766}
-  FinishAlly: {x: -3, y: 0, z: -9}
-  FinishEnemy: {x: 3, y: 0, z: 9}
+  FinishAlly: {x: -6, y: 0, z: -9}
+  FinishEnemy: {x: 6, y: 0, z: 9}

@@ -4022,7 +4022,7 @@ MonoBehaviour:
   Weapon: 0
   Cost: 250
   Health: 100
-  Damage: 25
+  Damage: 5
   Speed: 1
   PositionSmoothValue: 0.5
   RotationSmoothValue: 0.75
@@ -4038,8 +4038,8 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
+  m_Radius: 0.75
+  m_Height: 2.5
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &7812166770672370210
@@ -4102,7 +4102,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 4.25
+  m_Radius: 3
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &5919485876641487885
 MonoBehaviour:
@@ -4247,12 +4247,12 @@ PrefabInstance:
     - target: {fileID: 5966664932446522617, guid: 52d6a52a247c8854388b20c8ea9c8ea3,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 8.5
+      value: 6.5
       objectReference: {fileID: 0}
     - target: {fileID: 5966664932446522617, guid: 52d6a52a247c8854388b20c8ea9c8ea3,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 8.5
+      value: 6.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 52d6a52a247c8854388b20c8ea9c8ea3, type: 3}

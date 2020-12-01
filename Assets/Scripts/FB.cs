@@ -411,6 +411,6 @@ public class FB : MonoBehaviour
 
         ConnectionStep = 0;
         
-        SceneManager.LoadScene(0);
+        Application.Quit();
     }
 }

@@ -29,6 +29,8 @@ public class UiBar : MonoBehaviour
 
         Slider.minValue = Min;
         Slider.maxValue = Max;
+
+        Slider.value = 200;
     }
 
     private void Start()

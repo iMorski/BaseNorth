@@ -5,7 +5,15 @@ public class UiCell : MonoBehaviour
 {
     [SerializeField] private Button Button;
     [SerializeField] private Image Plane;
-    
+    [SerializeField] private Image PlaneBorder;
+    [SerializeField] private Color BorderColorAlly;
+    [SerializeField] private Color BorderColorEnemy;
+    [SerializeField] private Vector3 FinishAlly;
+    [SerializeField] private Vector3 FinishEnemy;
+
+    public static Vector3 FinishCell01;
+    public static Vector3 FinishCell02;
+
     public delegate void OnСlick();
     public static event OnСlick Сlick;
 
@@ -16,6 +24,9 @@ public class UiCell : MonoBehaviour
 
     private void Awake()
     {
+        FinishCell01 = FinishAlly;
+        FinishCell02 = FinishEnemy;
+        
         Сlick += OnMoveClick;
 
         if (!(transform.position != new Vector3(0.0f, 0.0f, 0.0f)))
@@ -31,6 +42,7 @@ public class UiCell : MonoBehaviour
         GameController.Spawn += OnSpawn;
         GameController.Move += OnMove;
         GameController.CarMove += OnCarMove;
+        GameController.SetPosition += OnSetPosition;
         
         UiDeck.Сlick += OnDeckClick;
         UiCharacter.Сlick += OnCharacterClick;
@@ -64,6 +76,42 @@ public class UiCell : MonoBehaviour
             Disable();
             
             IsOccupied = true;
+        }
+    }
+
+    private void OnSetPosition()
+    {
+        switch (GameController.MyPosition)
+        {
+            case 1:
+
+                if (!(transform.position != FinishAlly))
+                {
+                    PlaneBorder.color = BorderColorAlly;
+                    PlaneBorder.enabled = true;
+                }
+                else if (!(transform.position != FinishEnemy))
+                {
+                    PlaneBorder.color = BorderColorEnemy;
+                    PlaneBorder.enabled = true;
+                }
+
+                break;
+            
+            case 2:
+                
+                if (!(transform.position != FinishAlly))
+                {
+                    PlaneBorder.color = BorderColorEnemy;
+                    PlaneBorder.enabled = true;
+                }
+                else if (!(transform.position != FinishEnemy))
+                {
+                    PlaneBorder.color = BorderColorAlly;
+                    PlaneBorder.enabled = true;
+                }
+
+                break;
         }
     }
 
@@ -103,13 +151,13 @@ public class UiCell : MonoBehaviour
     {
         if (!IsOccupied)
         {
-            Debug.Log(transform.position.z);
+            Disable();
             
             switch (GameController.MyPosition)
             {
                 case 1:
 
-                    if (!(transform.position.z != -9.0f) || transform.position.z < -9.0f)
+                    if (transform.position.z < -7.5f)
                     {
                         Enable();
                     }
@@ -118,7 +166,7 @@ public class UiCell : MonoBehaviour
             
                 case 2:
                 
-                    if (!(transform.position.z != 9.0f) || transform.position.z > 9.0f)
+                    if (transform.position.z > 7.5f)
                     {
                         Enable();
                     }

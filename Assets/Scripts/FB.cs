@@ -4,6 +4,7 @@ using Firebase;
 using Firebase.Database;
 using Firebase.Unity.Editor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class FB : MonoBehaviour
 {
@@ -409,5 +410,7 @@ public class FB : MonoBehaviour
         RoomData.Clear();
 
         ConnectionStep = 0;
+        
+        SceneManager.LoadScene(0);
     }
 }

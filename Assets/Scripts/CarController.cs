@@ -6,10 +6,14 @@ using UnityEngine;
 
 public class CarController : MonoBehaviour
 {
-    [SerializeField] private Vector3[] AllyRoute;
-    [SerializeField] private Vector3[] EnemyRoute;
+    public Vector3[] AllyRoute;
+    public Vector3[] EnemyRoute;
+    
     [Range(0.0f, 1.0f)][SerializeField] private float PositionSmoothValue;
     [Range(0.0f, 1.0f)][SerializeField] private float RotationSmoothValue;
+    
+    public delegate void OnGameOver(string Result);
+    public static event OnGameOver GameOver;
 
     [NonSerialized] public Vector3 OnCellPosition = new Vector3();
     
@@ -18,6 +22,19 @@ public class CarController : MonoBehaviour
     private bool OnMove;
     
     private List<string> InDistance = new List<string>();
+    
+    private void Start()
+    {
+        CharacterController.Die += OnDeath;
+    }
+
+    private void OnDeath(GameObject Character, Vector3 Position)
+    {
+        if (InDistance.Contains(Character.transform.parent.name))
+        {
+            InDistance.Remove(Character.transform.parent.name);
+        }
+    }
 
     public void SetPosition(Vector3 NextPosition)
     {
@@ -40,11 +57,48 @@ public class CarController : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
 
-        OnMove = false;
+        if (!(NextPosition != UiCell.FinishCell01))
+        {
+            switch (GameController.MyPosition)
+            {
+                case 1:
+                    
+                    GameOver?.Invoke("Win");
 
-        UiCar.Icon.enabled = false;
+                    break;
+                
+                case 2:
+                    
+                    GameOver?.Invoke("Loose");
 
-        StartCoroutine(Check());
+                    break;
+            }
+        }
+        else if (!(NextPosition != UiCell.FinishCell02))
+        {
+            switch (GameController.MyPosition)
+            {
+                case 1:
+                    
+                    GameOver?.Invoke("Loose");
+
+                    break;
+                
+                case 2:
+                    
+                    GameOver?.Invoke("Win");
+
+                    break;
+            }
+        }
+        else
+        {
+            OnMove = false;
+
+            UiCar.Icon.enabled = false;
+
+            StartCoroutine(Check());
+        }
     }
     
     private IEnumerator Rotate(Vector3 CurrentPosition, Vector3 NextPosition)

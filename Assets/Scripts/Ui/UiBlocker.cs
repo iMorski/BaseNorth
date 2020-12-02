@@ -1,6 +1,8 @@
-﻿using TMPro;
+﻿using System.Diagnostics;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UiBlocker : MonoBehaviour
 {
@@ -8,12 +10,16 @@ public class UiBlocker : MonoBehaviour
     [SerializeField] private TMP_Text TMP;
     [SerializeField] private Color ColorWin;
     [SerializeField] private Color ColorLoose;
+    [SerializeField] private Sprite SpriteWin;
+    [SerializeField] private Sprite SpriteLoose;
     
     private Animator Animator;
+    private Image Image;
 
     private void Awake()
     {
         Animator = GetComponent<Animator>();
+        Image = GetComponent<Image>();
     }
 
     private void Start()
@@ -36,6 +42,8 @@ public class UiBlocker : MonoBehaviour
 
                 TMP.text = "WINNER!\n\nRESTART\nAPPLICATION";
                 TMP.color = ColorWin;
+                Image.sprite = SpriteWin;
+
 
                 break;
             
@@ -43,6 +51,7 @@ public class UiBlocker : MonoBehaviour
                 
                 TMP.text = "LOOSER :(\n\nRESTART\nAPPLICATION";
                 TMP.color = ColorLoose;
+                Image.sprite = SpriteLoose;
 
                 break;
         }

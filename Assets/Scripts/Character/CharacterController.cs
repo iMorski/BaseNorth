@@ -20,6 +20,16 @@ public class CharacterController : MonoBehaviour
     [SerializeField] private GameObject BloodFX;
     [SerializeField] private Transform BloodFXSpawnPosition;
     
+    /*
+    
+    public delegate void OnMoveOut(GameObject Character, Vector3 Position);
+    public static event OnMoveOut MoveOut;
+    
+    public delegate void OnStayInCell(GameObject Character, Vector3 Position);
+    public static event OnStayInCell StayInCell;
+    
+    */
+    
     public delegate void OnDie(GameObject Character, Vector3 Position);
     public static event OnDie Die;
     
@@ -249,15 +259,24 @@ public class CharacterController : MonoBehaviour
 
     private IEnumerator Move(Vector3 NextPosition)
     {
-        OnCellPosition = NextPosition;
+        /*
         
+        if (!(GameController.MyPosition != 1))
+        {
+            MoveOut(gameObject, OnCellPosition);
+        }
+        
+        */
+        
+        OnCellPosition = NextPosition;
+
         while (transform.position != NextPosition)
         {
             transform.position = Vector3.MoveTowards(transform.position, NextPosition, PositionSmoothValue * 10 * Time.deltaTime);
-        
+
             yield return new WaitForEndOfFrame();
         }
-        
+
         Animation("Wait");
 
         if (transform.parent.name.Contains("Ally"))
@@ -270,8 +289,17 @@ public class CharacterController : MonoBehaviour
         {
             StartCoroutine(Search());
         }
+        
+        /*
+
+        if (!(GameController.MyPosition != 1))
+        {
+            StayInCell(gameObject, NextPosition);
+        }
+        
+        */
     }
-    
+
     private IEnumerator RotateOnMove(Vector3 CurrentPosition, Vector3 NextPosition)
     {
         Quaternion Rotation = Quaternion.LookRotation(NextPosition - CurrentPosition);

@@ -15,6 +15,8 @@ public class CarController : MonoBehaviour
     public delegate void OnGameOver(string Result);
     public static event OnGameOver GameOver;
 
+    public static bool IsGameOver;
+
     [NonSerialized] public Vector3 OnCellPosition = new Vector3();
     
     private int OnRoutePosition;
@@ -23,9 +25,21 @@ public class CarController : MonoBehaviour
     
     private List<string> InDistance = new List<string>();
     
+    private List<Vector3> QueuePositionCurrent = new List<Vector3>();
+    private List<Vector3> QueuePositionNext = new List<Vector3>();
+    
     private void Start()
     {
+        GameController.SetPosition += OnSetPosition;
         CharacterController.Die += OnDeath;
+    }
+
+    private void OnSetPosition()
+    {
+        if (!(GameController.MyPosition != 1))
+        {
+            StartCoroutine(Check());
+        }
     }
 
     private void OnDeath(GameObject Character, Vector3 Position)
@@ -38,14 +52,34 @@ public class CarController : MonoBehaviour
 
     public void SetPosition(Vector3 NextPosition)
     {
-        StartCoroutine(Move(NextPosition));
-        StartCoroutine(Rotate(OnCellPosition, NextPosition));
+        Debug.Log("Trying to set position.");
+        Debug.Log("On Move? " + OnMove);
         
+        if (!(GameController.MyPosition != 1) || (!(GameController.MyPosition != 2) && !OnMove))
+        {
+            Debug.Log("No queue, starting to move!");
+            
+            StartCoroutine(Move(NextPosition));
+            StartCoroutine(Rotate(OnCellPosition, NextPosition));
+        }
+        else
+        {
+            Debug.Log("Setting queue!");
+            
+            QueuePositionCurrent.Add(OnCellPosition);
+            QueuePositionNext.Add(NextPosition);
+        }
+
         OnCellPosition = NextPosition;
     }
 
     private IEnumerator Move(Vector3 NextPosition)
     {
+        if (!(GameController.MyPosition != 2))
+        {
+            OnMove = true;
+        }
+        
         UiCar UiCar = GetComponentInChildren<UiCar>();
         
         UiCar.Icon.enabled = true;
@@ -73,6 +107,8 @@ public class CarController : MonoBehaviour
 
                     break;
             }
+
+            IsGameOver = true;
         }
         else if (!(NextPosition != UiCell.FinishCell02))
         {
@@ -90,13 +126,35 @@ public class CarController : MonoBehaviour
 
                     break;
             }
+
+            IsGameOver = true;
         }
         else
         {
+            if (!(GameController.MyPosition != 2) && (QueuePositionCurrent.Any() || QueuePositionNext.Any()))
+            {
+                Debug.Log("Getting something from queue!");
+                Debug.Log("Current: " + QueuePositionCurrent.First());
+                Debug.Log("Next: " + QueuePositionNext.First());
+                
+                StartCoroutine(Move(QueuePositionNext.First()));
+                StartCoroutine(Rotate(QueuePositionCurrent.First(), QueuePositionNext.First()));
+
+                QueuePositionCurrent.Remove(QueuePositionCurrent.First());
+                QueuePositionNext.Remove(QueuePositionNext.First());
+                
+                Debug.Log("Queue length: " + QueuePositionCurrent.Count);
+                
+                yield break;
+            }
+            
             OnMove = false;
 
             UiCar.Icon.enabled = false;
+        }
 
+        if (!(GameController.MyPosition != 1))
+        {
             StartCoroutine(Check());
         }
     }
@@ -112,7 +170,7 @@ public class CarController : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
     }
-
+    
     private IEnumerator Check()
     {
         while (!OnMove)
@@ -122,14 +180,12 @@ public class CarController : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
     }
-    
+
     private void OnTriggerEnter(Collider other)
     {
         if (!(GameController.MyPosition != 1) && (other.transform.parent.name.Contains("Ally") || other.transform.parent.name.Contains("Enemy")))
         {
             InDistance.Add(other.transform.parent.name);
-
-            CheckInDistance();
         }
     }
 
@@ -138,8 +194,6 @@ public class CarController : MonoBehaviour
         if (!(GameController.MyPosition != 1) && (other.transform.parent.name.Contains("Ally") || other.transform.parent.name.Contains("Enemy")))
         {
             InDistance.Remove(other.transform.parent.name);
-
-            CheckInDistance();
         }
     }
 

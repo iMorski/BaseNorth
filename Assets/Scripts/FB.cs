@@ -8,6 +8,10 @@ using UnityEngine.SceneManagement;
 
 public class FB : MonoBehaviour
 {
+    [SerializeField] private UiBlocker _UiBlocker;
+
+    private static UiBlocker UiBlocker;
+    
     [SerializeField] private string _Link;
     [SerializeField] private string _PrettyTextPlayer;
     [SerializeField] private string _PrettyTextRoom;
@@ -82,6 +86,8 @@ public class FB : MonoBehaviour
     
     private void Awake()
     {
+        UiBlocker = _UiBlocker;
+        
         DontDestroyOnLoad(gameObject);
         
         Link = _Link;
@@ -410,7 +416,10 @@ public class FB : MonoBehaviour
         RoomData.Clear();
 
         ConnectionStep = 0;
-        
-        Application.Quit();
+
+        if (!CarController.IsGameOver)
+        {
+            UiBlocker.OnGameOver("Win");
+        }
     }
 }

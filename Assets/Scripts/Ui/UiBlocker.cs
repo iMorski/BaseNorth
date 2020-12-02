@@ -28,20 +28,20 @@ public class UiBlocker : MonoBehaviour
         Animator.Play("Blocker-Fade-Out");
     }
 
-    private void OnGameOver(string Result)
+    public void OnGameOver(string Result)
     {
         switch (Result)
         {
             case "Win":
 
-                TMP.text = "WINNER!";
+                TMP.text = "WINNER!\n\nRESTART\nAPPLICATION";
                 TMP.color = ColorWin;
 
                 break;
             
             case "Loose":
                 
-                TMP.text = "LOOSER :(";
+                TMP.text = "LOOSER :(\n\nRESTART\nAPPLICATION";
                 TMP.color = ColorLoose;
 
                 break;

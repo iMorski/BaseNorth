@@ -65,6 +65,8 @@ public class CharacterController : MonoBehaviour
                 if (transform.parent.name.Contains("Ally"))
                 {
                     Team01.SetActive(true);
+                    
+                    transform.rotation = Quaternion.Euler(0.0f, 180.0f, 0.0f);
                 }
                 else
                 {
@@ -78,6 +80,8 @@ public class CharacterController : MonoBehaviour
                 if (transform.parent.name.Contains("Ally"))
                 {
                     Team02.SetActive(true);
+                    
+                    transform.rotation = Quaternion.Euler(0.0f, 180.0f, 0.0f);
                 }
                 else
                 {

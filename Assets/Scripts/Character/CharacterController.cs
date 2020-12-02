@@ -20,16 +20,6 @@ public class CharacterController : MonoBehaviour
     [SerializeField] private GameObject BloodFX;
     [SerializeField] private Transform BloodFXSpawnPosition;
     
-    /*
-    
-    public delegate void OnMoveOut(GameObject Character, Vector3 Position);
-    public static event OnMoveOut MoveOut;
-    
-    public delegate void OnStayInCell(GameObject Character, Vector3 Position);
-    public static event OnStayInCell StayInCell;
-    
-    */
-    
     public delegate void OnDie(GameObject Character, Vector3 Position);
     public static event OnDie Die;
     
@@ -53,22 +43,7 @@ public class CharacterController : MonoBehaviour
         CharacterCheck = GetComponentInChildren<CharacterCheck>();
         CharacterAnimator = GetComponentInChildren<Animator>();
         CharacterUi = GetComponentInChildren<UiCharacter>();
-
-        switch (GameController.MyPosition)
-        {
-            case 1:
-                
-                Team01.SetActive(true);
-
-                break;
-            
-            case 2:
-                
-                Team02.SetActive(true);
-
-                break;
-        }
-
+        
         Animation("Wait");
     }
 
@@ -82,6 +57,35 @@ public class CharacterController : MonoBehaviour
         }
         
         OnCellPosition = transform.position;
+        
+        switch (GameController.MyPosition)
+        {
+            case 1:
+
+                if (transform.parent.name.Contains("Ally"))
+                {
+                    Team01.SetActive(true);
+                }
+                else
+                {
+                    Team02.SetActive(true);
+                }
+
+                break;
+            
+            case 2:
+                
+                if (transform.parent.name.Contains("Ally"))
+                {
+                    Team02.SetActive(true);
+                }
+                else
+                {
+                    Team01.SetActive(true);
+                }
+
+                break;
+        }
     }
 
     private void OnHit(GameObject HitCharacter, int HitHealth)

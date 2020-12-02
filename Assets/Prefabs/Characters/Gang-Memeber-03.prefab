@@ -4259,7 +4259,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Team01: {fileID: 1613599859609887210}
-  Team02: {fileID: 1614053772561075284}
+  Team02: {fileID: 1614000778995896008}
   Weapon: 2
   Cost: 750
   Health: 100

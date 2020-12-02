@@ -4625,12 +4625,12 @@ PrefabInstance:
     - target: {fileID: 3307583411085028199, guid: 52d6a52a247c8854388b20c8ea9c8ea3,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 1.25
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 3307583411085028199, guid: 52d6a52a247c8854388b20c8ea9c8ea3,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 1.25
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 4748222745223477548, guid: 52d6a52a247c8854388b20c8ea9c8ea3,
         type: 3}
@@ -4677,13 +4677,13 @@ PrefabInstance:
         type: 3}
       propertyPath: Pistol
       value: 
-      objectReference: {fileID: 21300000, guid: 407867f91eb04314ba2be6e3243b45d3,
+      objectReference: {fileID: 21300000, guid: a04ef82a55042e548b0ecda3b5ed3b0e,
         type: 3}
     - target: {fileID: 6097749268659242239, guid: 52d6a52a247c8854388b20c8ea9c8ea3,
         type: 3}
       propertyPath: Rifle
       value: 
-      objectReference: {fileID: 21300000, guid: 4e98599ae98c65f4088bfef50b0cfb1c,
+      objectReference: {fileID: 21300000, guid: 52c57b3fb40846a469c2c617d6ed189a,
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 52d6a52a247c8854388b20c8ea9c8ea3, type: 3}

@@ -35,7 +35,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 25, y: 25}
+  m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7660500490401325887
 CanvasRenderer:
@@ -366,7 +366,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1959318537268329249}
   - component: {fileID: 4324296114243535946}
-  - component: {fileID: 7391009509306015676}
   m_Layer: 5
   m_Name: Ui-Deck
   m_TagString: Untagged
@@ -409,28 +408,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Character: {fileID: 0}
   Icon: {fileID: 6074935067699042959}
-  Melee: {fileID: 21300000, guid: b71205350a5044142b221057f6690007, type: 3}
-  Pistol: {fileID: 21300000, guid: 407867f91eb04314ba2be6e3243b45d3, type: 3}
-  Rifle: {fileID: 21300000, guid: 4e98599ae98c65f4088bfef50b0cfb1c, type: 3}
+  Melee: {fileID: 21300000, guid: fe969f4003579b64f82a6173849a8a31, type: 3}
+  Pistol: {fileID: 21300000, guid: a04ef82a55042e548b0ecda3b5ed3b0e, type: 3}
+  Rifle: {fileID: 21300000, guid: 52c57b3fb40846a469c2c617d6ed189a, type: 3}
   Price: {fileID: 380671817824752934}
   Position: {fileID: 1959318537159092565}
   Button: {fileID: 1959318537159092564}
   Block: {fileID: 8845843499372703430}
---- !u!114 &7391009509306015676
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1959318537268329250}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
-  m_EffectDistance: {x: 1, y: -1}
-  m_UseGraphicAlpha: 1
 --- !u!1 &1959318537608226253
 GameObject:
   m_ObjectHideFlags: 0
@@ -571,8 +555,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: $500
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a2521a0e81dc2024aab3adba558d4b72, type: 2}
-  m_sharedMaterial: {fileID: -6808572435366507327, guid: a2521a0e81dc2024aab3adba558d4b72,
+  m_fontAsset: {fileID: 11400000, guid: 18a15ad975fd6a04a8afb25df6fbc1e7, type: 2}
+  m_sharedMaterial: {fileID: -7912670369931916901, guid: 18a15ad975fd6a04a8afb25df6fbc1e7,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -597,8 +581,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20.88
-  m_fontSizeBase: 20.88
+  m_fontSize: 18
+  m_fontSizeBase: 18
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

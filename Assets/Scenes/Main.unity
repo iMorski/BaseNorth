@@ -31816,19 +31816,19 @@ PrefabInstance:
         type: 3}
       propertyPath: Melee
       value: 
-      objectReference: {fileID: 21300000, guid: 8bca34eadb0806c44a9c072e3b0bdd82,
+      objectReference: {fileID: 21300000, guid: fe969f4003579b64f82a6173849a8a31,
         type: 3}
     - target: {fileID: 4324296114243535946, guid: 46b6d283b476c04449cd4c1b5ccb07c3,
         type: 3}
       propertyPath: Pistol
       value: 
-      objectReference: {fileID: 21300000, guid: 407867f91eb04314ba2be6e3243b45d3,
+      objectReference: {fileID: 21300000, guid: a04ef82a55042e548b0ecda3b5ed3b0e,
         type: 3}
     - target: {fileID: 4324296114243535946, guid: 46b6d283b476c04449cd4c1b5ccb07c3,
         type: 3}
       propertyPath: Rifle
       value: 
-      objectReference: {fileID: 21300000, guid: 4e98599ae98c65f4088bfef50b0cfb1c,
+      objectReference: {fileID: 21300000, guid: 52c57b3fb40846a469c2c617d6ed189a,
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 46b6d283b476c04449cd4c1b5ccb07c3, type: 3}
@@ -32311,7 +32311,6 @@ GameObject:
   - component: {fileID: 1061131997}
   - component: {fileID: 1061131996}
   - component: {fileID: 1061131998}
-  - component: {fileID: 1061131999}
   m_Layer: 5
   m_Name: Console
   m_TagString: Untagged
@@ -32335,7 +32334,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 23.200012, y: -18.099976}
+  m_AnchoredPosition: {x: 25, y: -25}
   m_SizeDelta: {x: 10, y: 10}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1061131996
@@ -32358,21 +32357,19 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 80a664d6223fbc0499820bcc4d9e6a1c, type: 3}
-    m_FontSize: 20
+    m_Font: {fileID: 12800000, guid: f53d1b75c987d2544b1a8eafd1f9e833, type: 3}
+    m_FontSize: 24
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 20
-    m_MaxSize: 20
+    m_MinSize: 2
+    m_MaxSize: 136
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\u041F\u041E\u0414\u0421\u041A\u0410\u0417\u041A\u0410: 50% \u0421\u0422\u041E\u0418\u041C\u041E\u0421\u0422\u0418
-    \u042E\u041D\u0418\u0422\u0410 \u0412\u041E\u0417\u0412\u0420\u0410\u0429\u0410\u0415\u0422\u0421\u042F
-    \u041F\u041E\u0421\u041B\u0415 \u0415\u0413\u041E \u0413\u0418\u0411\u0415\u041B\u0418\n\nCONSOLE:"
+  m_Text: 'CONSOLE:'
 --- !u!222 &1061131997
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -32393,21 +32390,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eadc96222afaef44e83357e8cca34663, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1061131999
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1061131994}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
-  m_EffectDistance: {x: 1, y: -1}
-  m_UseGraphicAlpha: 1
 --- !u!1001 &1062196878
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -33278,19 +33260,19 @@ PrefabInstance:
         type: 3}
       propertyPath: Melee
       value: 
-      objectReference: {fileID: 21300000, guid: 8bca34eadb0806c44a9c072e3b0bdd82,
+      objectReference: {fileID: 21300000, guid: fe969f4003579b64f82a6173849a8a31,
         type: 3}
     - target: {fileID: 4324296114243535946, guid: 46b6d283b476c04449cd4c1b5ccb07c3,
         type: 3}
       propertyPath: Pistol
       value: 
-      objectReference: {fileID: 21300000, guid: 407867f91eb04314ba2be6e3243b45d3,
+      objectReference: {fileID: 21300000, guid: a04ef82a55042e548b0ecda3b5ed3b0e,
         type: 3}
     - target: {fileID: 4324296114243535946, guid: 46b6d283b476c04449cd4c1b5ccb07c3,
         type: 3}
       propertyPath: Rifle
       value: 
-      objectReference: {fileID: 21300000, guid: 4e98599ae98c65f4088bfef50b0cfb1c,
+      objectReference: {fileID: 21300000, guid: 52c57b3fb40846a469c2c617d6ed189a,
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 46b6d283b476c04449cd4c1b5ccb07c3, type: 3}
@@ -57609,8 +57591,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 12.499998, y: -12.5}
+  m_SizeDelta: {x: -25.000004, y: -25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2022358563
 MonoBehaviour:
@@ -57633,8 +57615,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a2521a0e81dc2024aab3adba558d4b72, type: 2}
-  m_sharedMaterial: {fileID: -6808572435366507327, guid: a2521a0e81dc2024aab3adba558d4b72,
+  m_fontAsset: {fileID: 11400000, guid: 18a15ad975fd6a04a8afb25df6fbc1e7, type: 2}
+  m_sharedMaterial: {fileID: -7912670369931916901, guid: 18a15ad975fd6a04a8afb25df6fbc1e7,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -57666,8 +57648,8 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 2
-  m_VerticalAlignment: 512
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -61755,19 +61737,19 @@ PrefabInstance:
         type: 3}
       propertyPath: Rifle
       value: 
-      objectReference: {fileID: 21300000, guid: 4e98599ae98c65f4088bfef50b0cfb1c,
+      objectReference: {fileID: 21300000, guid: 52c57b3fb40846a469c2c617d6ed189a,
         type: 3}
     - target: {fileID: 4324296114243535946, guid: 46b6d283b476c04449cd4c1b5ccb07c3,
         type: 3}
       propertyPath: Pistol
       value: 
-      objectReference: {fileID: 21300000, guid: 407867f91eb04314ba2be6e3243b45d3,
+      objectReference: {fileID: 21300000, guid: a04ef82a55042e548b0ecda3b5ed3b0e,
         type: 3}
     - target: {fileID: 4324296114243535946, guid: 46b6d283b476c04449cd4c1b5ccb07c3,
         type: 3}
       propertyPath: Melee
       value: 
-      objectReference: {fileID: 21300000, guid: 8bca34eadb0806c44a9c072e3b0bdd82,
+      objectReference: {fileID: 21300000, guid: fe969f4003579b64f82a6173849a8a31,
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 46b6d283b476c04449cd4c1b5ccb07c3, type: 3}

@@ -6,7 +6,7 @@ public class CharacterController : MonoBehaviour
 {
     [SerializeField] private GameObject Team01;
     [SerializeField] private GameObject Team02;
-
+    
     public Type Weapon;
 
     [Range(0.0f, 1000.0f)] public int Cost;
@@ -111,10 +111,9 @@ public class CharacterController : MonoBehaviour
                 
                 Die -= OnDeath;
                 Die(Character, OnCellPosition);
-               
+                
                 Destroy(Character);
             }
-            
         }
         else if (CharacterCheck.Enemy.Contains(HitCharacter))
         {

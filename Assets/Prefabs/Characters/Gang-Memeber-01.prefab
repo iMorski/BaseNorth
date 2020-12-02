@@ -4124,6 +4124,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6132498497924990476}
     m_Modifications:
+    - target: {fileID: 534039410126037018, guid: 52d6a52a247c8854388b20c8ea9c8ea3,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b71205350a5044142b221057f6690007,
+        type: 3}
     - target: {fileID: 700092737467072112, guid: 52d6a52a247c8854388b20c8ea9c8ea3,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -4244,6 +4250,16 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 3307583411085028199, guid: 52d6a52a247c8854388b20c8ea9c8ea3,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3307583411085028199, guid: 52d6a52a247c8854388b20c8ea9c8ea3,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 1.25
+      objectReference: {fileID: 0}
     - target: {fileID: 5966664932446522617, guid: 52d6a52a247c8854388b20c8ea9c8ea3,
         type: 3}
       propertyPath: m_SizeDelta.x
@@ -4254,6 +4270,39 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 6.5
       objectReference: {fileID: 0}
+    - target: {fileID: 6097749268659242239, guid: 52d6a52a247c8854388b20c8ea9c8ea3,
+        type: 3}
+      propertyPath: HPAlly.r
+      value: 0.21960661
+      objectReference: {fileID: 0}
+    - target: {fileID: 6097749268659242239, guid: 52d6a52a247c8854388b20c8ea9c8ea3,
+        type: 3}
+      propertyPath: HPAlly.g
+      value: 0.990566
+      objectReference: {fileID: 0}
+    - target: {fileID: 6097749268659242239, guid: 52d6a52a247c8854388b20c8ea9c8ea3,
+        type: 3}
+      propertyPath: HPAlly.b
+      value: 0.21960661
+      objectReference: {fileID: 0}
+    - target: {fileID: 6097749268659242239, guid: 52d6a52a247c8854388b20c8ea9c8ea3,
+        type: 3}
+      propertyPath: Pistol
+      value: 
+      objectReference: {fileID: 21300000, guid: 407867f91eb04314ba2be6e3243b45d3,
+        type: 3}
+    - target: {fileID: 6097749268659242239, guid: 52d6a52a247c8854388b20c8ea9c8ea3,
+        type: 3}
+      propertyPath: Rifle
+      value: 
+      objectReference: {fileID: 21300000, guid: 4e98599ae98c65f4088bfef50b0cfb1c,
+        type: 3}
+    - target: {fileID: 6097749268659242239, guid: 52d6a52a247c8854388b20c8ea9c8ea3,
+        type: 3}
+      propertyPath: Melee
+      value: 
+      objectReference: {fileID: 21300000, guid: b71205350a5044142b221057f6690007,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 52d6a52a247c8854388b20c8ea9c8ea3, type: 3}
 --- !u!224 &591090924 stripped

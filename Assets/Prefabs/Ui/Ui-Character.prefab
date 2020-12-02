@@ -116,9 +116,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Icon: {fileID: 534039410126037018}
-  Melee: {fileID: 21300000, guid: fe969f4003579b64f82a6173849a8a31, type: 3}
-  Pistol: {fileID: 21300000, guid: a04ef82a55042e548b0ecda3b5ed3b0e, type: 3}
-  Rifle: {fileID: 21300000, guid: 52c57b3fb40846a469c2c617d6ed189a, type: 3}
+  Melee: {fileID: 21300000, guid: 8bca34eadb0806c44a9c072e3b0bdd82, type: 3}
+  Pistol: {fileID: 21300000, guid: 407867f91eb04314ba2be6e3243b45d3, type: 3}
+  Rifle: {fileID: 21300000, guid: 4e98599ae98c65f4088bfef50b0cfb1c, type: 3}
   HP: {fileID: 7122445995524974174}
   HPBar: {fileID: 6195788036754183445}
   HPAlly: {r: 0, g: 1, b: 0, a: 1}

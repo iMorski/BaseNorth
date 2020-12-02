@@ -47,6 +47,7 @@ public class CharacterController : MonoBehaviour
         Animation("Wait");
     }
 
+
     private void Start()
     {
         GameController.Hit += OnHit;

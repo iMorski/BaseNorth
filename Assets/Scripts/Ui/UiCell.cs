@@ -10,6 +10,8 @@ public class UiCell : MonoBehaviour
     [SerializeField] private Color BorderColorEnemy;
     [SerializeField] private Vector3 FinishAlly;
     [SerializeField] private Vector3 FinishEnemy;
+    [SerializeField] private AudioClip DeathSound;
+    [SerializeField] private AudioSource Audio;
 
     public static Vector3 FinishCell01;
     public static Vector3 FinishCell02;
@@ -142,6 +144,7 @@ public class UiCell : MonoBehaviour
             {
                 Enable();
             }
+            Audio.PlayOneShot(DeathSound,0.03f);
             
             IsOccupied = false;
         }
